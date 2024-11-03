@@ -1,20 +1,16 @@
 package router
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"log"
-	"net/http"
 
 	"tanya_dokter_app/app/controllers"
 	"tanya_dokter_app/app/middlewares"
-	"tanya_dokter_app/config"
 
-	_ "tanya_dokter_app/docs"
+	// _ "tanya_dokter_app/docs"
 
 	"github.com/labstack/echo/v4"
-	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func Init(app *echo.Echo) {
@@ -31,22 +27,22 @@ func Init(app *echo.Echo) {
 	app.GET("/", controllers.Index)
 	app.GET("/test", controllers.Test)
 	app.GET("/version", controllers.Version)
-	app.GET("/swagger/*", echoSwagger.WrapHandler)
-	app.GET("/docs", func(c echo.Context) error {
-		config := config.LoadConfig()
+	// app.GET("/swagger/*", echoSwagger.WrapHandler)
+	// app.GET("/docs", func(c echo.Context) error {
+	// 	config := config.LoadConfig()
 
-		data := map[string]interface{}{
-			"BaseUrl": config.BaseUrl,
-			"Title":   "API Documentation of " + config.AppName,
-		}
+	// 	data := map[string]interface{}{
+	// 		"BaseUrl": config.BaseUrl,
+	// 		"Title":   "API Documentation of " + config.AppName,
+	// 	}
 
-		if err := c.Render(http.StatusOK, "docs.html", data); err != nil {
-			fmt.Println("Render error:", err)
-			return err
-		}
+	// 	if err := c.Render(http.StatusOK, "docs.html", data); err != nil {
+	// 		fmt.Println("Render error:", err)
+	// 		return err
+	// 	}
 
-		return nil
-	})
+	// 	return nil
+	// })
 	app.Static("/assets", "assets")
 
 	api := app.Group("/v1", middlewares.StripHTMLMiddleware, middlewares.CheckAPIKey())
