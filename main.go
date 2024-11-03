@@ -2,11 +2,11 @@ package handler
 
 import (
 	"net/http"
-	"tanya_dokter_app/app/router"
+	router "tanya_dokter_app/app/router"
 	"tanya_dokter_app/config"
 
-	"github.com/labstack/echo/v4"
 	_ "github.com/joho/godotenv/autoload"
+	"github.com/labstack/echo/v4"
 )
 
 // func main() {
