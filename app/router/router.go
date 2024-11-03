@@ -14,10 +14,10 @@ import (
 )
 
 func Init(app *echo.Echo) {
-	renderer := &TemplateRenderer{
-		templates: template.Must(template.ParseGlob("*.html")),
-	}
-	app.Renderer = renderer
+	// renderer := &TemplateRenderer{
+	// 	templates: template.Must(template.ParseGlob("*.html")),
+	// }
+	// app.Renderer = renderer
 
 	app.Use(middlewares.Cors())
 	app.Use(middlewares.Secure())
