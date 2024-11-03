@@ -8,7 +8,7 @@ import (
 	"tanya_dokter_app/app/controllers"
 	"tanya_dokter_app/app/middlewares"
 
-	// _ "tanya_dokter_app/docs"
+	_ "tanya_dokter_app/docs"
 
 	"github.com/labstack/echo/v4"
 )
