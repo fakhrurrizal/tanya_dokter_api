@@ -1,0 +1,239 @@
+definitions:
+  reqres.GlobalRoleUpdateRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    required:
+    - name
+    type: object
+  reqres.SignInRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  reqres.SignUpRequest:
+    properties:
+      address:
+        type: string
+      avatar:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      district:
+        type: string
+      email:
+        type: string
+      fullname:
+        type: string
+      gender:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      province:
+        type: string
+      role_id:
+        type: integer
+      village:
+        type: string
+      zip_code:
+        type: string
+    required:
+    - email
+    - fullname
+    - password
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/auth/csrf:
+    get:
+      consumes:
+      - application/json
+      description: CSRF Token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: CSRF Token
+      tags:
+      - Auth
+  /v1/auth/signin:
+    post:
+      consumes:
+      - application/json
+      description: SignIn
+      parameters:
+      - description: SignIn user
+        in: body
+        name: signin
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.SignInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: SignIn
+      tags:
+      - Auth
+  /v1/auth/signup:
+    post:
+      consumes:
+      - application/json
+      description: SignUp
+      parameters:
+      - description: SignUp user
+        in: body
+        name: signup
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.SignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: SignUp
+      tags:
+      - Auth
+  /v1/role:
+    get:
+      description: Get All Roles With Pagination
+      parameters:
+      - description: search (string)
+        in: query
+        name: search
+        type: string
+      - description: page (int)
+        in: query
+        name: page
+        type: integer
+      - description: limit (int)
+        in: query
+        name: limit
+        type: integer
+      - description: sort (ASC/DESC)
+        in: query
+        name: sort
+        type: string
+      - description: 'order by (default: id)'
+        in: query
+        name: order
+        type: string
+      - description: status (true (active) or false (inactive))
+        in: query
+        name: status
+        type: boolean
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_top
+        type: string
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_bottom
+        type: string
+      - description: code (string)
+        in: query
+        name: code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get All Roles With Pagination
+      tags:
+      - Role
+  /v1/role/{id}:
+    delete:
+      description: Delete Single Role by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Delete Single Role by ID
+      tags:
+      - Role
+    get:
+      description: Get Single Role
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get Single Role
+      tags:
+      - Role
+    put:
+      description: Update Single Role by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalRoleUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Update Single Role by ID
+      tags:
+      - Role
+  /version:
+    get:
+      consumes:
+      - application/json
+      description: Get Version Build
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get Version Build
+      tags:
+      - Home
+swagger: "2.0"

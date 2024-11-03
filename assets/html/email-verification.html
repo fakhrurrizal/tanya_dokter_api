@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Verifikasi Alamat Email Anda - {{.AppName}}</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      a {
+        color: #1546d0;
+      }
+      a:hover {
+        color: #df4f0e;
+      }
+      #verification-button:hover {
+        background-color: #df4f0e !important;
+        box-shadow: none !important;
+      }
+    </style>
+  </head>
+  <body style="font-family: Arial, sans-serif;">
+    <table
+      style="
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-collapse: collapse;
+      "
+    >
+      <tr>
+        <td
+          style="
+            font-weight: bold;
+            font-size: 28px;
+            padding: 25px 0 25px 0;
+            border-bottom: 1px solid #1546d0;
+          "
+        >
+          Verifikasi Alamat Email Anda
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 25px 0 25px 0;">
+          Kepada Yth. <strong>{{.Fullname}}</strong>.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Selamat datang di {{.AppName}}! Kami berterima kasih atas pendaftaran
+          Anda. Untuk memulai pengalaman berbisnis Anda bersama kami, kami perlu
+          memastikan bahwa alamat email yang Anda berikan adalah yang benar.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Untuk menyelesaikan proses pendaftaran Anda. Silakan masukan PIN di
+          bawah ini untuk memverifikasi alamat email Anda:
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0; text-align: center;">
+          <span
+            style="
+              background-color: #1547d036;
+              padding: 10px;
+              font-weight: bold;
+              border-radius: 10px;
+            "
+            >{{.PIN}}</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Jika Anda tidak meminta permintaan ini, harap abaikan pesan ini.
+          Namun, pastikan untuk menjaga keamanan akun Anda dengan tidak
+          memberikan tautan ini kepada siapa pun.
+        </td>
+      </tr>
+     
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Jika Anda tidak meminta verifikasi ini, harap abaikan pesan ini.
+          Namun, pastikan untuk menjaga keamanan akun Anda dengan tidak
+          memberikan tautan ini kepada siapa pun.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Jika Anda memiliki pertanyaan atau membutuhkan bantuan, tim dukungan
+          kami selalu siap membantu. Dan kami akan dengan senang hati membantu
+          Anda.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Terima kasih atas kepercayaan Anda kepada {{.AppName}}. Kami berharap
+          Anda akan memiliki pengalaman berbisnis yang sukses bersama kami.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">
+          Wassalamulaikum warahmatullahi wabarakatuh.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 30px 0 30px 0; border-top: 1px solid #1546d0;">
+          Salam Hangat,
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 30px 0;">
+          <strong>Tim Management {{.AppName}}</strong>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

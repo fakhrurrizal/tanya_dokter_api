@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <title>{{.Title}}</title>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script defer src="{{.BaseUrl}}/assets/js/rapidoc-min.js"></script></head>
+</head>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const docEl = document.getElementById('thedoc');
+    docEl.addEventListener('before-try', (e) => {
+      e.detail.request.headers.append('AAA-BBB', 'CCC DDDD');
+    });
+  });
+</script>
+<style>
+  .btn {
+  width: 90px;
+  height: 32px;
+  padding: 2px;
+  font-size: 13px;
+  background-color: DodgerBlue;
+  color: #fff;
+  border: none;
+  margin: 0 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+}
+  .btn.medium {
+  width: 75px;
+  height: 28px;
+}
+</style>
+<body>
+
+<rapi-doc 
+  server-url = "{{.BaseUrl}}"
+  spec-url = "{{.BaseUrl}}/swagger/doc.json" 
+  id="thedoc" 
+  theme = "dark"
+  render-style = "read" 
+  show-header="false"
+  schema-style="table"
+  show-method-in-nav-bar = "as-colored-block"
+  use-path-in-nav-bar = "true"
+  show-components = "true"
+  show-info = "true"
+  allow-search = "true"  
+  allow-advanced-search = "true"
+  allow-spec-url-load="false"
+  allow-spec-file-download="false"
+  allow-server-selection = "false"
+  allow-authentication	= "true"
+  update-route="false"
+  match-type="regex"
+  persist-auth="true"
+>
+<div slot="nav-logo">
+  <div style="text-align: center; padding: 0 0 8px 0; color:#47AFE8"> Navigation Style </div>
+  <div style="width:100%; display: flex;justify-content: center;">
+    <button class='btn medium' onclick="document.getElementById('thedoc').setAttribute('use-path-in-nav-bar', 'true')" >Path</button>
+    <button class='btn medium' onclick="document.getElementById('thedoc').setAttribute('use-path-in-nav-bar', 'false')" >Summary</button>
+  </div>
+</rapi-doc>
+
+</body>
+
+</html>

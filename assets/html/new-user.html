@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pengguna Baru - {{.AppName}}</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+      a {
+        color: #1546d0;
+      }
+      a:hover {
+        color: #df4f0e;
+      }
+      #verification-button:hover {
+        background-color: #df4f0e !important;
+        box-shadow: none !important;
+      }
+    </style>
+  </head>
+  <body style="font-family: Arial, sans-serif;">
+    <table
+      style="
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-collapse: collapse;
+      "
+    >
+      <tr>
+        <td
+          colspan="2"
+          style="
+            font-weight: bold;
+            font-size: 28px;
+            padding: 25px 0 25px 0;
+            border-bottom: 1px solid #1546d0;
+          "
+        >
+          Pengguna Baru
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 25px 0 25px 0;">
+          Kepada Yth. <strong>{{.AdminFullname}}</strong>.
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 0 25px 0;">
+          Kami berharap Anda dalam keadaan sehat. Anda menerima email ini dari
+          {{.AppName}}.
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 0 25px 0;">
+          Kami ingin memberitahu bahwa ada pengguna baru yang mendaftar di
+          aplikasi.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">Berikut Detail Pengguna Barunya:</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">Nama</td>
+        <td style="font-weight: bold;">Email</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">{{.Fullname}}</td>
+        <td style="padding: 0 0 25px 0;">{{.Email}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">Phone</td>
+        <td style="font-weight: bold;">Nama Aplikasi</td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 25px 0;">{{.Phone}}</td>
+        <td style="padding: 0 0 25px 0;">{{.CompanyName}}</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 0 25px 0;">
+          Jika Anda memiliki pertanyaan atau membutuhkan bantuan, tim dukungan
+          kami selalu siap membantu. Hubungi kami di
+          <a href="mailto:{{.ContactEmail}}" target="_blank"
+            >{{.ContactEmail}}</a
+          >
+          dan kami akan dengan senang hati membantu Anda.
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 0 25px 0;">
+          Terima kasih atas kepercayaan Anda kepada {{.AppName}}. Kami berharap
+          Anda akan memiliki pengalaman berbisnis yang sukses bersama kami.
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 0 25px 0;">
+          Wassalamulaikum warahmatullahi wabarakatuh.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 30px 0 30px 0; border-top: 1px solid #1546d0;">
+          Salam Hangat,
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 30px 0;">
+          <strong>Tim Management {{.AppName}}</strong>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
