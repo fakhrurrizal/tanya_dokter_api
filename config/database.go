@@ -33,6 +33,7 @@ func Database() *gorm.DB {
 			&models.GlobalRole{},
 			&models.GlobalUser{},
 			&models.NotificationForEmail{},
+			&models.GlobalCategorySpecialist{},
 		)
 		if err != nil {
 			log.Fatalf("Auto migration failed: %v", err)

@@ -153,7 +153,7 @@ func SendNewUSerEmailNotificationPreparation(c echo.Context, data reqres.SignUpR
 
 	adminUserAccess, _ := repository.GetAllUsers(1)
 	if len(adminUserAccess) > 0 {
-		adminUser, _ := repository.GetUserByIDPlain(int(adminUserAccess[0].ID), 0)
+		adminUser, _ := repository.GetUserByIDPlain(int(adminUserAccess[0].ID))
 		adminFullname = adminUser.Fullname
 		adminEmail = adminUser.Email
 	}

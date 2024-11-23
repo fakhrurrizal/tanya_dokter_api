@@ -61,13 +61,29 @@ func Init(app *echo.Echo) {
 			// auth.GET("/user", controllers.GetSignInUser, middlewares.Auth())
 			// auth.PUT("/user-profile", controllers.UpdateUserProfileByID, middlewares.Auth())
 		}
-		role := api.Group("/role")
+		role := api.Group("/roles")
 		{
 			role.POST("", controllers.CreateRole, middlewares.Auth())
 			role.GET("", controllers.GetRoles)
 			role.GET("/:id", controllers.GetRoleByID)
 			role.DELETE("/:id", controllers.DeleteRoleByID, middlewares.Auth())
 			role.PUT("/:id", controllers.UpdateRoleByID, middlewares.Auth())
+		}
+		user := api.Group("/users")
+		{
+			user.POST("", controllers.CreateUser, middlewares.Auth())
+			user.GET("", controllers.GetUsers)
+			user.GET("/:id", controllers.GetUserByID)
+			user.DELETE("/:id", controllers.DeleteUserByID, middlewares.Auth())
+			user.PUT("/:id", controllers.UpdateUserByID, middlewares.Auth())
+		}
+		category_specialist := api.Group("/category-specialist")
+		{
+			category_specialist.POST("", controllers.CreateCategorySpecialist, middlewares.Auth())
+			category_specialist.GET("", controllers.GetCategorySpecialists)
+			category_specialist.GET("/:id", controllers.GetCategorySpecialistByID)
+			category_specialist.DELETE("/:id", controllers.DeleteCategorySpecialistByID, middlewares.Auth())
+			category_specialist.PUT("/:id", controllers.UpdateCategorySpecialistByID, middlewares.Auth())
 		}
 	}
 	log.Printf("Server started...")

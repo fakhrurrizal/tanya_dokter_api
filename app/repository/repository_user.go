@@ -71,7 +71,6 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 	response.Avatar = data.Avatar
 	response.Fullname = data.Fullname
 	response.Email = strings.ToLower(data.Email)
-	response.Password = data.Password
 	response.Phone = data.Phone
 	response.Address = data.Address
 	response.Village = data.Village
@@ -81,6 +80,8 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 	response.Country = data.Country
 	response.ZipCode = data.ZipCode
 	response.Status = data.Status
+	response.Gender = data.Gender
+	
 
 	if data.RoleID > 0 {
 		roles, _ = GetRoleByIDPlain(data.RoleID)
@@ -122,7 +123,7 @@ func GetUsers(roleId int, createdAtMarginTop, createdAtMarginBottom string, para
 	}
 
 	if param.Search != "" {
-		where += " AND (fullname ILIKE '%" + param.Search + "%' OR employee_id ILIKE '%" + param.Search + "%')"
+		where += " AND (fullname ILIKE '%" + param.Search + "%' OR email ILIKE '%" + param.Search + "%')"
 	}
 
 	var totalFiltered int64
@@ -154,7 +155,7 @@ func GetAllUsers(status int) (users []models.GlobalUser, err error) {
 	return
 }
 
-func GetUserByIDPlain(id, companyID int) (response models.GlobalUser, err error) {
+func GetUserByIDPlain(id int) (response models.GlobalUser, err error) {
 	err = config.DB.First(&response, id).Error
 
 	return
@@ -164,4 +165,20 @@ func UpdateUser(request models.GlobalUser) (response models.GlobalUser, err erro
 	err = config.DB.Save(&request).Scan(&response).Error
 
 	return
+}
+
+func GetUserByID(id int) (response reqres.GlobalUserResponse, err error) {
+	var data models.GlobalUser
+	err = config.DB.First(&data, id).Error
+
+	response = BuildUserResponse(data)
+
+	return
+}
+
+func DeleteUser(request models.GlobalUser) (models.GlobalUser, error) {
+	var err error
+	err = config.DB.Delete(&request).Error
+
+	return request, err
 }

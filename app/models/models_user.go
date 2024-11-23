@@ -26,9 +26,6 @@ type GlobalUser struct {
 	RoleID             int       `json:"role_id"`
 	EmailVerifiedAt    null.Time `json:"-" gorm:"column:email_verified_at"`
 	TwoFactorConfirmed bool      `json:"-" gorm:"column:two_factor_confirmed"`
-	CreatedAt          time.Time `json:"created_at,omitempty" gorm:"column:created_at"`
-	UpdatedAt          null.Time `json:"updated_at,omitempty" gorm:"column:updated_at"`
-	DeletedAt          null.Time `json:"-" gorm:"column:deleted_at"`
 }
 
 type GlobalUserAllResponse struct {
@@ -72,7 +69,6 @@ type GlobalUserLogin struct {
 
 type CustomGormModel struct {
 	ID        uint            `gorm:"primary_key" json:"id"`
-	EncodedID string          `json:"encoded_id" gorm:"-"`
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
 	DeletedAt *gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`

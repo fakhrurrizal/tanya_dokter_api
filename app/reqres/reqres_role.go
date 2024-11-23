@@ -24,7 +24,6 @@ type GlobalRoleResponse struct {
 	models.CustomGormModel
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Flag        string `json:"flag"`
 	Status      int    `json:"status"`
 }
 
