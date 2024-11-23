@@ -58,7 +58,7 @@ func Init(app *echo.Echo) {
 			// auth.POST("/reset-password", controllers.ResetPassword)
 			auth.POST("/resend-email-verification", controllers.ResendEmailVerification)
 			auth.POST("/email-verification", controllers.EmailVerification)
-			// auth.GET("/user", controllers.GetSignInUser, middlewares.Auth())
+			auth.GET("/user", controllers.GetSignInUser, middlewares.Auth())
 			// auth.PUT("/user-profile", controllers.UpdateUserProfileByID, middlewares.Auth())
 		}
 		role := api.Group("/roles")

@@ -55,24 +55,26 @@ func (request TokenRequest) Validate() error {
 }
 
 type GlobalUserAuthResponse struct {
-	ID            int                    `json:"id"`
-	Email         string                 `json:"email"`
-	Username      string                 `json:"username"`
-	Fullname      string                 `json:"fullname"`
-	Phone         string                 `json:"phone"`
-	Status        int                    `json:"status"`
-	Role          GlobalIDNameResponse   `json:"role,omitempty"`
-	App           []GlobalIDNameResponse `json:"app,omitempty"`
-	UserParent    GlobalIDNameResponse   `json:"user_parent,omitempty"`
-	EmailVerified bool                   `json:"email_verified"`
+	ID            int                  `json:"id"`
+	Email         string               `json:"email"`
+	Fullname      string               `json:"fullname"`
+	Phone         string               `json:"phone"`
+	Status        int                  `json:"status"`
+	Gender        string               `json:"gender" `
+	Avatar        string               `json:"avatar" `
+	Address       string               `json:"address" `
+	Village       string               `json:"village"`
+	District      string               `json:"district"`
+	City          string               `json:"city"`
+	Province      string               `json:"province"`
+	Country       string               `json:"country"`
+	ZipCode       string               `json:"zip_code" gorm:"type: varchar(50)"`
+	Role          GlobalIDNameResponse `json:"role,omitempty"`
+	EmailVerified bool                 `json:"email_verified"`
 }
 
 type GlobalIDNameResponse struct {
-	ID          int    `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Email       string `json:"email,omitempty"`
-	Description string `json:"description,omitempty"`
-	BaseIcon    string `json:"base_icon,omitempty"`
-	Avatar      string `json:"image,omitempty"`
-	// GeofencePointLimit int    `json:"geofence_point_limit,omitempty"`
+	ID        int    `json:"id,omitempty"`
+	EncodedID string `json:"encoded_id,omitempty"`
+	Name      string `json:"name,omitempty"`
 }

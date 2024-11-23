@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"net/http"
 	"strings"
+	"tanya_dokter_app/app/models"
 	"tanya_dokter_app/app/repository"
 	"tanya_dokter_app/app/reqres"
 	"tanya_dokter_app/app/utils"
@@ -80,8 +81,6 @@ func SignUp(c echo.Context) error {
 			},
 		}))
 	}
-
-	// go SendNewUSerEmailNotificationPreparation(c, request)
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":  200,
@@ -245,5 +244,63 @@ func EmailVerification(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status": 200,
 		"data":   data,
+	})
+}
+
+// GetSignInUser godoc
+// @Summary Get Sign In User
+// @Description Get Sign In User
+// @Tags Auth
+// @Produce json
+// @Success 200
+// @Router /v1/auth/user [get]
+// @Security ApiKeyAuth
+// @Security JwtToken
+func GetSignInUser(c echo.Context) error {
+
+	id := c.Get("user_id").(int)
+	user, err := repository.GetUserByIDPlain(id)
+	if err != nil {
+		return c.JSON(500, utils.Respond(500, err, "Failed to get user data"))
+	}
+
+	var roles models.GlobalRole
+
+	var data reqres.GlobalUserAuthResponse
+	data.ID = int(user.ID)
+
+	data.Fullname = user.Fullname
+	data.Avatar = user.Avatar
+	data.Email = user.Email
+	data.Phone = user.Phone
+	data.Address = user.Address
+	data.Village = user.Village
+	data.District = user.District
+	data.City = user.City
+	data.Province = user.Province
+	data.Country = user.Country
+	data.ZipCode = user.ZipCode
+	data.Status = user.Status
+	data.Gender = user.Gender
+	
+
+	if user.EmailVerifiedAt.Time.IsZero() {
+		data.EmailVerified = false
+	} else {
+		data.EmailVerified = true
+	}
+
+	if user.RoleID > 0 {
+		roles, _ = repository.GetRoleByIDPlain(user.RoleID)
+		data.Role = reqres.GlobalIDNameResponse{
+			ID:   int(roles.ID),
+			Name: roles.Name,
+		}
+	}
+
+	return c.JSON(200, map[string]interface{}{
+		"status":  200,
+		"data":    data,
+		"message": "Success to get user data",
 	})
 }

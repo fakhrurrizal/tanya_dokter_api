@@ -81,7 +81,6 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 	response.ZipCode = data.ZipCode
 	response.Status = data.Status
 	response.Gender = data.Gender
-	
 
 	if data.RoleID > 0 {
 		roles, _ = GetRoleByIDPlain(data.RoleID)
