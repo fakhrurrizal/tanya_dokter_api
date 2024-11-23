@@ -140,9 +140,9 @@ func SignIn(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": map[string]interface{}{
-			"user":       user,
-			"token":      accessToken,
-			"expiration": time.Now().Add(time.Hour * 72).Format("2006-01-02 15:04:05"),
+			"user":         user,
+			"access_token": accessToken,
+			"expiration":   time.Now().Add(time.Hour * 72).Format("2006-01-02 15:04:05"),
 		},
 	})
 }
