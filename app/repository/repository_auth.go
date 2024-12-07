@@ -58,7 +58,7 @@ func GetVerificationToken(request *reqres.EmailRequest) (data string, err error)
 	}
 	// log.Println("Sending Email Preparation:", user)
 
-	go sendEmailAuthentification(request.Email, user.Fullname, "https://github.com/fakhrurrizal/tanya_dokter_api/blob/master/assets/html/email-verification.html", "Verifikasi Email")
+	go sendEmailAuthentification(request.Email, user.Fullname, "/assets/html/email-verification.html", "Verifikasi Email")
 
 	data = "Email sent successfully."
 	return
