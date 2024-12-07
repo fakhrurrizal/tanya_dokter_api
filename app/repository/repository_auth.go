@@ -58,7 +58,7 @@ func GetVerificationToken(request *reqres.EmailRequest) (data string, err error)
 	}
 	// log.Println("Sending Email Preparation:", user)
 
-	go sendEmailAuthentification(request.Email, user.Fullname, "/assets/html/email-verification.html", "Verifikasi Email")
+	go sendEmailAuthentification(request.Email, user.Fullname, "public/assets/html/email-verification.html", "Verifikasi Email")
 
 	data = "Email sent successfully."
 	return
