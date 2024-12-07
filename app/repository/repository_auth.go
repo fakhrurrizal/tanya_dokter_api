@@ -58,7 +58,7 @@ func GetVerificationToken(request *reqres.EmailRequest) (data string, err error)
 	}
 	// log.Println("Sending Email Preparation:", user)
 
-	go sendEmailAuthentification(request.Email, user.Fullname, "https://res.cloudinary.com/divwga0wy/raw/upload/v1733555526/tanya-dokter/html/email-verification.html", "Verifikasi Email")
+	go sendEmailAuthentification(request.Email, user.Fullname, "https://drive.google.com/file/d/1X-Gy-Sa12i8ayUIxSMdGaT6V1Jj4kGO-/view?usp=sharing", "Verifikasi Email")
 
 	data = "Email sent successfully."
 	return
