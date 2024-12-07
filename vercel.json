@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "main.go",
-      "use": "@vercel/go"
+      "use": "@vercel/go",
+      "config": {
+        "includeFiles": ["assets/**"]
+      }
     }
   ],
   "routes": [
