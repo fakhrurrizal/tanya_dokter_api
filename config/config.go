@@ -57,8 +57,10 @@ type Config struct {
 
 func LoadConfig() (config *Config) {
 
+	fmt.Println("Root Path :", RootPath())
 	if err := godotenv.Load(RootPath() + `/.env`); err != nil {
-		fmt.Println(err)
+		fmt.Println("error loading .env file:", err)
+
 	}
 
 	appName := os.Getenv("APP_NAME")
