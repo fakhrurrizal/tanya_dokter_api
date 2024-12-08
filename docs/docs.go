@@ -356,7 +356,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/roles": {
+        "/v1/role": {
             "get": {
                 "security": [
                     {
@@ -434,7 +434,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/roles/{id}": {
+        "/v1/role/{id}": {
             "get": {
                 "security": [
                     {
@@ -538,7 +538,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users": {
+        "/v1/user": {
             "get": {
                 "security": [
                     {
@@ -653,7 +653,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users/{id}": {
+        "/v1/user/{id}": {
             "get": {
                 "security": [
                     {

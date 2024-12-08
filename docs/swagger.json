@@ -348,7 +348,7 @@
                 }
             }
         },
-        "/v1/roles": {
+        "/v1/role": {
             "get": {
                 "security": [
                     {
@@ -426,7 +426,7 @@
                 }
             }
         },
-        "/v1/roles/{id}": {
+        "/v1/role/{id}": {
             "get": {
                 "security": [
                     {
@@ -530,7 +530,7 @@
                 }
             }
         },
-        "/v1/users": {
+        "/v1/user": {
             "get": {
                 "security": [
                     {
@@ -645,7 +645,7 @@
                 }
             }
         },
-        "/v1/users/{id}": {
+        "/v1/user/{id}": {
             "get": {
                 "security": [
                     {

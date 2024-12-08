@@ -336,7 +336,7 @@ paths:
       summary: Update Single CategorySpecialist by ID
       tags:
       - CategorySpecialist
-  /v1/roles:
+  /v1/role:
     get:
       description: Get All Roles With Pagination
       parameters:
@@ -386,7 +386,7 @@ paths:
       summary: Get All Roles With Pagination
       tags:
       - Role
-  /v1/roles/{id}:
+  /v1/role/{id}:
     delete:
       description: Delete Single Role by ID
       parameters:
@@ -449,7 +449,7 @@ paths:
       summary: Update Single Role by ID
       tags:
       - Role
-  /v1/users:
+  /v1/user:
     get:
       description: Get All Users With Pagination
       parameters:
@@ -520,7 +520,7 @@ paths:
       summary: Create User
       tags:
       - User
-  /v1/users/{id}:
+  /v1/user/{id}:
     delete:
       description: Delete Single User by ID
       parameters:

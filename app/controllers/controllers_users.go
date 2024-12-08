@@ -20,7 +20,7 @@ import (
 // @Produce json
 // @Param Body body reqres.GlobalUserRequest true "Create body"
 // @Success 200
-// @Router /v1/users [post]
+// @Router /v1/user [post]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func CreateUser(c echo.Context) error {
@@ -68,7 +68,7 @@ func CreateUser(c echo.Context) error {
 // @Param created_at_margin_bottom query string false "created_at_margin_top (format: 2006-01-02)"
 // @Produce json
 // @Success 200
-// @Router /v1/users [get]
+// @Router /v1/user [get]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func GetUsers(c echo.Context) error {
@@ -90,7 +90,7 @@ func GetUsers(c echo.Context) error {
 // @Param id path integer true "ID"
 // @Produce json
 // @Success 200
-// @Router /v1/users/{id} [get]
+// @Router /v1/user/{id} [get]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func GetUserByID(c echo.Context) error {
@@ -116,7 +116,7 @@ func GetUserByID(c echo.Context) error {
 // @Param id path integer true "ID"
 // @Param company_id query integer false "company_id (int)"
 // @Success 200
-// @Router /v1/users/{id} [delete]
+// @Router /v1/user/{id} [delete]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func DeleteUserByID(c echo.Context) error {
@@ -158,7 +158,7 @@ func DeleteUserByID(c echo.Context) error {
 // @Param Body body reqres.GlobalUserRequest true "Update body"
 // @Param company_id query integer false "company_id (int)"
 // @Success 200
-// @Router /v1/users/{id} [put]
+// @Router /v1/user/{id} [put]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func UpdateUserByID(c echo.Context) error {

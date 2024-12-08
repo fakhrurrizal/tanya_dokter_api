@@ -57,7 +57,7 @@ func Init(app *echo.Echo) {
 			auth.GET("/user", controllers.GetSignInUser, middlewares.Auth())
 			// auth.PUT("/user-profile", controllers.UpdateUserProfileByID, middlewares.Auth())
 		}
-		role := api.Group("/roles")
+		role := api.Group("/role")
 		{
 			role.POST("", controllers.CreateRole, middlewares.Auth())
 			role.GET("", controllers.GetRoles)
@@ -65,7 +65,7 @@ func Init(app *echo.Echo) {
 			role.DELETE("/:id", controllers.DeleteRoleByID, middlewares.Auth())
 			role.PUT("/:id", controllers.UpdateRoleByID, middlewares.Auth())
 		}
-		user := api.Group("/users")
+		user := api.Group("/user")
 		{
 			user.POST("", controllers.CreateUser, middlewares.Auth())
 			user.GET("", controllers.GetUsers)
