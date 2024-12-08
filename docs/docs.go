@@ -356,7 +356,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/role": {
+        "/v1/roles": {
             "get": {
                 "security": [
                     {
@@ -434,7 +434,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/role/{id}": {
+        "/v1/roles/{id}": {
             "get": {
                 "security": [
                     {
@@ -538,7 +538,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/user": {
+        "/v1/users": {
             "get": {
                 "security": [
                     {
@@ -653,7 +653,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/user/{id}": {
+        "/v1/users/{id}": {
             "get": {
                 "security": [
                     {
@@ -992,7 +992,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Tanya Dokter API",
-	Description:      "API documentation by Nizom",
+	Description:      "API documentation by Kang Fakhrur",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

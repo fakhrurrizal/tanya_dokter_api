@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "API documentation by Nizom",
+        "description": "API documentation by Kang Fakhrur",
         "title": "Tanya Dokter API",
         "contact": {},
         "version": "V1.2412.081710"
@@ -348,7 +348,7 @@
                 }
             }
         },
-        "/v1/role": {
+        "/v1/roles": {
             "get": {
                 "security": [
                     {
@@ -426,7 +426,7 @@
                 }
             }
         },
-        "/v1/role/{id}": {
+        "/v1/roles/{id}": {
             "get": {
                 "security": [
                     {
@@ -530,7 +530,7 @@
                 }
             }
         },
-        "/v1/user": {
+        "/v1/users": {
             "get": {
                 "security": [
                     {
@@ -645,7 +645,7 @@
                 }
             }
         },
-        "/v1/user/{id}": {
+        "/v1/users/{id}": {
             "get": {
                 "security": [
                     {

@@ -50,7 +50,7 @@ func CreateRole(c echo.Context) error {
 // @Param code query string false "code (string)"
 // @Produce json
 // @Success 200
-// @Router /v1/role [get]
+// @Router /v1/roles [get]
 // @Security ApiKeyAuth
 func GetRoles(c echo.Context) error {
 
@@ -67,7 +67,7 @@ func GetRoles(c echo.Context) error {
 // @Param id path integer true "ID"
 // @Produce json
 // @Success 200
-// @Router /v1/role/{id} [get]
+// @Router /v1/roles/{id} [get]
 // @Security ApiKeyAuth
 func GetRoleByID(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -90,7 +90,7 @@ func GetRoleByID(c echo.Context) error {
 // @Param id path integer true "ID"
 // @Param Body body reqres.GlobalRoleUpdateRequest true "Update body"
 // @Success 200
-// @Router /v1/role/{id} [put]
+// @Router /v1/roles/{id} [put]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func UpdateRoleByID(c echo.Context) error {
@@ -134,7 +134,7 @@ func UpdateRoleByID(c echo.Context) error {
 // @Produce json
 // @Param id path integer true "ID"
 // @Success 200
-// @Router /v1/role/{id} [delete]
+// @Router /v1/roles/{id} [delete]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func DeleteRoleByID(c echo.Context) error {
