@@ -338,7 +338,7 @@ paths:
       - CategorySpecialist
   /v1/role:
     get:
-      description: Get All Roles With Pagination
+      description: Get All Role With Pagination
       parameters:
       - description: search (string)
         in: query
@@ -383,7 +383,7 @@ paths:
           description: OK
       security:
       - ApiKeyAuth: []
-      summary: Get All Roles With Pagination
+      summary: Get All Role With Pagination
       tags:
       - Role
   /v1/role/{id}:

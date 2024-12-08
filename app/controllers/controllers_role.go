@@ -35,8 +35,8 @@ func CreateRole(c echo.Context) error {
 }
 
 // GetRoles godoc
-// @Summary Get All Roles With Pagination
-// @Description Get All Roles With Pagination
+// @Summary Get All Role With Pagination
+// @Description Get All Role With Pagination
 // @Tags Role
 // @Param search query string false "search (string)"
 // @Param page query integer false "page (int)"

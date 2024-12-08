@@ -363,14 +363,14 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Get All Roles With Pagination",
+                "description": "Get All Role With Pagination",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Role"
                 ],
-                "summary": "Get All Roles With Pagination",
+                "summary": "Get All Role With Pagination",
                 "parameters": [
                     {
                         "type": "string",
