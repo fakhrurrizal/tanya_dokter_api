@@ -13,7 +13,7 @@ import (
 
 // @title Tanya Dokter API
 // @version V1.2412.081710
-// @description API documentation by Nizom
+// @description API documentation by Kang Fakhrur
 
 // @securityDefinitions.apikey JwtToken
 // @in header
