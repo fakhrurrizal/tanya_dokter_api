@@ -1,57 +1,53 @@
 package router
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"log"
+	"net/http"
 
 	"tanya_dokter_app/app/controllers"
 	"tanya_dokter_app/app/middlewares"
+	"tanya_dokter_app/config"
 
 	_ "tanya_dokter_app/docs"
 
 	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func Init(app *echo.Echo) {
-	// renderer := &TemplateRenderer{
-	// 	templates: template.Must(template.ParseGlob("*.html")),
-	// }
-	// app.Renderer = renderer
-
+	renderer := &TemplateRenderer{
+		templates: template.Must(template.ParseGlob("*.html")),
+	}
+	app.Renderer = renderer
 	app.Use(middlewares.Cors())
 	app.Use(middlewares.Secure())
 	app.Use(middlewares.Gzip())
 	app.Use(middlewares.Recover())
+	app.Use(middlewares.Logger())
 
 	app.GET("/", controllers.Index)
 	app.GET("/test", controllers.Test)
 	app.GET("/version", controllers.Version)
-	// app.GET("/swagger/*", echoSwagger.WrapHandler)
-	// app.GET("/docs", func(c echo.Context) error {
-	// 	config := config.LoadConfig()
-
-	// 	data := map[string]interface{}{
-	// 		"BaseUrl": config.BaseUrl,
-	// 		"Title":   "API Documentation of " + config.AppName,
-	// 	}
-
-	// 	if err := c.Render(http.StatusOK, "docs.html", data); err != nil {
-	// 		fmt.Println("Render error:", err)
-	// 		return err
-	// 	}
-
-	// 	return nil
-	// })
+	app.GET("/swagger/*", echoSwagger.WrapHandler)
+	app.GET("/docs", func(c echo.Context) error {
+		err := c.Render(http.StatusOK, "docs.html", map[string]interface{}{
+			"BaseUrl": config.LoadConfig().BaseUrl,
+			"Title":   "Api Documentation of " + config.LoadConfig().AppName,
+		})
+		fmt.Println("err:", err)
+		return err
+	})
 	app.Static("/assets", "assets")
 
 	api := app.Group("/v1", middlewares.StripHTMLMiddleware, middlewares.CheckAPIKey())
 	{
 		auth := api.Group("/auth")
 		{
-			auth.GET("/csrf", controllers.CSRFToken)
-			auth.POST("/signup", controllers.SignUp)
 			auth.POST("/signin", controllers.SignIn)
+			auth.POST("/signup", controllers.SignUp)
 			// auth.POST("/forgot-password", controllers.ForgotPassword)
 
 			// auth.POST("/signin/google/mobile", controllers.GoogleSignInMobile)

@@ -1,17 +1,20 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "API documentation by Nizom",
+        "title": "Tanya Dokter API",
+        "contact": {},
+        "version": "V1.2412.081710"
     },
     "paths": {
-        "/v1/auth/csrf": {
-            "get": {
+        "/v1/auth/email-verification": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "CSRF Token",
+                "description": "Email Verification for User",
                 "consumes": [
                     "application/json"
                 ],
@@ -21,7 +24,54 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "CSRF Token",
+                "summary": "Email Verification for User",
+                "parameters": [
+                    {
+                        "description": "fill with valid token",
+                        "name": "Update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.TokenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/auth/resend-email-verification": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "ResendEmail user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ResendEmail User",
+                "parameters": [
+                    {
+                        "description": "valid email",
+                        "name": "Update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.EmailRequest"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -82,6 +132,213 @@
                         "schema": {
                             "$ref": "#/definitions/reqres.SignUpRequest"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/auth/user": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Get Sign In User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get Sign In User",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/category-specialist": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get All CategorySpecialists With Pagination",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CategorySpecialist"
+                ],
+                "summary": "Get All CategorySpecialists With Pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "search (string)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "page (int)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit (int)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "sort (ASC/DESC)",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "order by (default: id)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "status (true (active) or false (inactive))",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_top",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_bottom",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "code (string)",
+                        "name": "code",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/category-specialist/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get Single CategorySpecialist",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CategorySpecialist"
+                ],
+                "summary": "Get Single CategorySpecialist",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Update Single CategorySpecialist by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CategorySpecialist"
+                ],
+                "summary": "Update Single CategorySpecialist by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalCategorySpecialistUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Delete Single CategorySpecialist by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CategorySpecialist"
+                ],
+                "summary": "Delete Single CategorySpecialist by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -273,6 +530,240 @@
                 }
             }
         },
+        "/v1/user": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Get All Users With Pagination",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get All Users With Pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "search (string)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "page (int)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit (int)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "sort (ASC/DESC)",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "order by (default: id)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "status (true (active) or false (inactive))",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "role_id (int)",
+                        "name": "role_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_top",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_bottom",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Create New User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create User",
+                "parameters": [
+                    {
+                        "description": "Create body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/user/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Get Single User",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Single User",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Update Single User by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update Single User by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalUserRequest"
+                        }
+                    },
+                    {
+                        "type": "integer",
+                        "description": "company_id (int)",
+                        "name": "company_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Delete Single User by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete Single User by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "company_id (int)",
+                        "name": "company_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/version": {
             "get": {
                 "description": "Get Version Build",
@@ -295,6 +786,34 @@
         }
     },
     "definitions": {
+        "reqres.EmailRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "reqres.GlobalCategorySpecialistUpdateRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "reqres.GlobalRoleUpdateRequest": {
             "type": "object",
             "required": [
@@ -309,6 +828,64 @@
                 },
                 "status": {
                     "type": "integer"
+                }
+            }
+        },
+        "reqres.GlobalUserRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "fullname",
+                "password"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "auto_verified": {
+                    "type": "boolean"
+                },
+                "avatar": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "fullname": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "province": {
+                    "type": "string"
+                },
+                "role_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "village": {
+                    "type": "string"
+                },
+                "zip_code": {
+                    "type": "string"
                 }
             }
         },
@@ -374,6 +951,28 @@
                     "type": "string"
                 }
             }
+        },
+        "reqres.TokenRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "pin"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "pin": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JwtToken": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

@@ -89,23 +89,6 @@ func SignUp(c echo.Context) error {
 
 }
 
-// CSRFToken godoc
-// @Summary CSRF Token
-// @Description CSRF Token
-// @Tags Auth
-// @Accept json
-// @Produce json
-// @Success 200
-// @Router /v1/auth/csrf [get]
-// @Security ApiKeyAuth
-func CSRFToken(c echo.Context) error {
-	csrf := c.Get("csrf")
-
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": 200,
-		"data":   csrf,
-	})
-}
 
 // SignIn godoc
 // @Summary SignIn

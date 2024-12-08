@@ -3,15 +3,17 @@ module tanya_dokter_app
 go 1.22.3
 
 require (
+	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/grokify/html-strip-tags-go v0.1.0
 	github.com/guregu/null v4.0.0+incompatible
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/labstack/gommon v0.4.2
+	github.com/lib/pq v1.10.9
 	github.com/sqids/sqids-go v0.4.1
-	github.com/swaggo/echo-swagger v1.3.5
-	github.com/swaggo/swag v1.16.1
+	github.com/swaggo/echo-swagger v1.4.0
+	github.com/swaggo/swag v1.16.3
 	golang.org/x/crypto v0.28.0
 	golang.org/x/text v0.19.0
 	gopkg.in/tylerb/graceful.v1 v1.2.15
@@ -24,7 +26,6 @@ require (
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
-	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.4 // indirect
@@ -37,12 +38,12 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
-	github.com/lib/pq v1.10.9 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a // indirect
+	github.com/swaggo/files/v2 v2.0.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	golang.org/x/net v0.26.0 // indirect

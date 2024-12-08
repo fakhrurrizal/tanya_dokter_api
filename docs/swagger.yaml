@@ -1,4 +1,22 @@
 definitions:
+  reqres.EmailRequest:
+    properties:
+      email:
+        type: string
+    type: object
+  reqres.GlobalCategorySpecialistUpdateRequest:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    required:
+    - name
+    type: object
   reqres.GlobalRoleUpdateRequest:
     properties:
       description:
@@ -9,6 +27,45 @@ definitions:
         type: integer
     required:
     - name
+    type: object
+  reqres.GlobalUserRequest:
+    properties:
+      address:
+        type: string
+      auto_verified:
+        type: boolean
+      avatar:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      district:
+        type: string
+      email:
+        type: string
+      fullname:
+        type: string
+      gender:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      province:
+        type: string
+      role_id:
+        type: integer
+      status:
+        type: integer
+      village:
+        type: string
+      zip_code:
+        type: string
+    required:
+    - email
+    - fullname
+    - password
     type: object
   reqres.SignInRequest:
     properties:
@@ -52,14 +109,34 @@ definitions:
     - fullname
     - password
     type: object
+  reqres.TokenRequest:
+    properties:
+      email:
+        type: string
+      pin:
+        type: string
+    required:
+    - email
+    - pin
+    type: object
 info:
   contact: {}
+  description: API documentation by Nizom
+  title: Tanya Dokter API
+  version: V1.2412.081710
 paths:
-  /v1/auth/csrf:
-    get:
+  /v1/auth/email-verification:
+    post:
       consumes:
       - application/json
-      description: CSRF Token
+      description: Email Verification for User
+      parameters:
+      - description: fill with valid token
+        in: body
+        name: Update
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.TokenRequest'
       produces:
       - application/json
       responses:
@@ -67,7 +144,29 @@ paths:
           description: OK
       security:
       - ApiKeyAuth: []
-      summary: CSRF Token
+      summary: Email Verification for User
+      tags:
+      - Auth
+  /v1/auth/resend-email-verification:
+    post:
+      consumes:
+      - application/json
+      description: ResendEmail user
+      parameters:
+      - description: valid email
+        in: body
+        name: Update
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.EmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: ResendEmail User
       tags:
       - Auth
   /v1/auth/signin:
@@ -110,6 +209,133 @@ paths:
       summary: SignUp
       tags:
       - Auth
+  /v1/auth/user:
+    get:
+      description: Get Sign In User
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Get Sign In User
+      tags:
+      - Auth
+  /v1/category-specialist:
+    get:
+      description: Get All CategorySpecialists With Pagination
+      parameters:
+      - description: search (string)
+        in: query
+        name: search
+        type: string
+      - description: page (int)
+        in: query
+        name: page
+        type: integer
+      - description: limit (int)
+        in: query
+        name: limit
+        type: integer
+      - description: sort (ASC/DESC)
+        in: query
+        name: sort
+        type: string
+      - description: 'order by (default: id)'
+        in: query
+        name: order
+        type: string
+      - description: status (true (active) or false (inactive))
+        in: query
+        name: status
+        type: boolean
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_top
+        type: string
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_bottom
+        type: string
+      - description: code (string)
+        in: query
+        name: code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get All CategorySpecialists With Pagination
+      tags:
+      - CategorySpecialist
+  /v1/category-specialist/{id}:
+    delete:
+      description: Delete Single CategorySpecialist by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Delete Single CategorySpecialist by ID
+      tags:
+      - CategorySpecialist
+    get:
+      description: Get Single CategorySpecialist
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get Single CategorySpecialist
+      tags:
+      - CategorySpecialist
+    put:
+      description: Update Single CategorySpecialist by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalCategorySpecialistUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Update Single CategorySpecialist by ID
+      tags:
+      - CategorySpecialist
   /v1/role:
     get:
       description: Get All Roles With Pagination
@@ -223,6 +449,149 @@ paths:
       summary: Update Single Role by ID
       tags:
       - Role
+  /v1/user:
+    get:
+      description: Get All Users With Pagination
+      parameters:
+      - description: search (string)
+        in: query
+        name: search
+        type: string
+      - description: page (int)
+        in: query
+        name: page
+        type: integer
+      - description: limit (int)
+        in: query
+        name: limit
+        type: integer
+      - description: sort (ASC/DESC)
+        in: query
+        name: sort
+        type: string
+      - description: 'order by (default: id)'
+        in: query
+        name: order
+        type: string
+      - description: status (true (active) or false (inactive))
+        in: query
+        name: status
+        type: boolean
+      - description: role_id (int)
+        in: query
+        name: role_id
+        type: integer
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_top
+        type: string
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_bottom
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Get All Users With Pagination
+      tags:
+      - User
+    post:
+      description: Create New User
+      parameters:
+      - description: Create body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Create User
+      tags:
+      - User
+  /v1/user/{id}:
+    delete:
+      description: Delete Single User by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: company_id (int)
+        in: query
+        name: company_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Delete Single User by ID
+      tags:
+      - User
+    get:
+      description: Get Single User
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Get Single User
+      tags:
+      - User
+    put:
+      description: Update Single User by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalUserRequest'
+      - description: company_id (int)
+        in: query
+        name: company_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Update Single User by ID
+      tags:
+      - User
   /version:
     get:
       consumes:
@@ -236,4 +605,9 @@ paths:
       summary: Get Version Build
       tags:
       - Home
+securityDefinitions:
+  JwtToken:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
