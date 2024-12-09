@@ -1,8 +1,6 @@
 package reqres
 
 import (
-	"time"
-
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/go-ozzo/ozzo-validation/is"
 )
@@ -32,11 +30,9 @@ func (request EmailRequest) Validate() error {
 }
 
 type ResetPasswordRequest struct {
-	Email       string    `gorm:"uniqueIndex"`
-	Pin         string    `gorm:"not null"`
-	NewPassword string    `json:"new_password"`
-	ExpiresAt   time.Time `gorm:"not null"`
-	CreatedAt   time.Time
+	Email       string `gorm:"uniqueIndex"`
+	Pin         string `gorm:"not null"`
+	NewPassword string `json:"new_password"`
 }
 
 func (request ResetPasswordRequest) Validate() error {
