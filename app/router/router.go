@@ -42,7 +42,7 @@ func Init(app *echo.Echo) {
 	})
 	app.Static("/assets", "assets")
 
-	api := app.Group("/v1", middlewares.StripHTMLMiddleware, middlewares.CheckAPIKey())
+	api := app.Group("/v1", middlewares.StripHTMLMiddleware)
 	{
 		auth := api.Group("/auth")
 		{
