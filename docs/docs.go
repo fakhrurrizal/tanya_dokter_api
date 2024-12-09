@@ -987,9 +987,6 @@ const docTemplate = `{
                 "expiresAt": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "integer"
-                },
                 "new_password": {
                     "type": "string"
                 },
