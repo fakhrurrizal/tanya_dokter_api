@@ -71,12 +71,6 @@ const docTemplate = `{
                 "summary": "Send Token Reset Password",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "csrf token",
-                        "name": "x-csrf-token",
-                        "in": "header"
-                    },
-                    {
                         "description": "Send token to email for reset password",
                         "name": "signup",
                         "in": "body",

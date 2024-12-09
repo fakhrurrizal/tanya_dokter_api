@@ -11,7 +11,6 @@ import (
 	"tanya_dokter_app/app/repository"
 	"tanya_dokter_app/app/reqres"
 	"tanya_dokter_app/app/utils"
-	"tanya_dokter_app/config"
 	"time"
 
 	validation "github.com/go-ozzo/ozzo-validation"
@@ -127,32 +126,6 @@ func SignIn(c echo.Context) error {
 			"expiration":   time.Now().Add(time.Hour * 72).Format("2006-01-02 15:04:05"),
 		},
 	})
-}
-
-func SendNewUSerEmailNotificationPreparation(c echo.Context, data reqres.SignUpRequest) {
-	var adminFullname string
-	var adminEmail string
-
-	adminUserAccess, _ := repository.GetAllUsers(1)
-	if len(adminUserAccess) > 0 {
-		adminUser, _ := repository.GetUserByIDPlain(int(adminUserAccess[0].ID))
-		adminFullname = adminUser.Fullname
-		adminEmail = adminUser.Email
-	}
-	newUserEmailNotificationTemplate := reqres.NewUserEmailNotification{
-		AppName:       config.LoadConfig().AppName,
-		Fullname:      data.Fullname,
-		AdminFullname: adminFullname,
-		Email:         data.Email,
-		Phone:         data.Phone,
-		CompanyName:   "Tanya Dokter",
-	}
-
-	repository.SendEmail("new-user", adminEmail, "Pengguna Baru - "+config.LoadConfig().AppName, "", newUserEmailNotificationTemplate)
-	emailAdmin, _ := repository.GetAllNotificationForEmails()
-	for _, data := range emailAdmin {
-		repository.SendEmail("new-user", data.Email, "Pengguna Baru - "+config.LoadConfig().AppName, "", newUserEmailNotificationTemplate)
-	}
 }
 
 // ResendEmailVerification godoc
@@ -292,7 +265,6 @@ func GetSignInUser(c echo.Context) error {
 // @Description Send Token Reset Password
 // @Tags Auth
 // @Accept json
-// @Param x-csrf-token header string false "csrf token"
 // @Produce json
 // @Param signup body reqres.EmailRequest true "Send token to email for reset password"
 // @Success 200
@@ -301,13 +273,11 @@ func GetSignInUser(c echo.Context) error {
 func ForgotPassword(c echo.Context) error {
 	var req reqres.EmailRequest
 
-	// Bind data dari request body
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewUnprocessableEntityError(err.Error()))
 	}
 	utils.StripTagsFromStruct(&req)
 
-	// Validasi input
 	if err := req.Validate(); err != nil {
 		errVal := err.(validation.Errors)
 		return c.JSON(http.StatusBadRequest, utils.NewInvalidInputError(errVal))
@@ -323,7 +293,6 @@ func ForgotPassword(c echo.Context) error {
 		})
 	}
 
-	// Kirimkan PIN ke email pengguna
 	if err := repository.SendResetPassword(pin, req.Email); err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": "Failed to send reset password email",
@@ -349,19 +318,16 @@ func ForgotPassword(c echo.Context) error {
 func ResetPassword(c echo.Context) error {
 	var req reqres.ResetPasswordRequest
 
-	// Bind data dari request body
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, utils.NewUnprocessableEntityError(err.Error()))
 	}
 	utils.StripTagsFromStruct(&req)
 
-	// Validasi input
 	if err := req.Validate(); err != nil {
 		errVal := err.(validation.Errors)
 		return c.JSON(http.StatusBadRequest, utils.NewInvalidInputError(errVal))
 	}
 
-	// Validasi kombinasi email dan PIN
 	if err := repository.ValidatePin(req.Email, req.Pin); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": err.Error(),

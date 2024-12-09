@@ -166,10 +166,6 @@ paths:
       - application/json
       description: Send Token Reset Password
       parameters:
-      - description: csrf token
-        in: header
-        name: x-csrf-token
-        type: string
       - description: Send token to email for reset password
         in: body
         name: signup
