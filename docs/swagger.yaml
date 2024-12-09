@@ -69,12 +69,10 @@ definitions:
     type: object
   reqres.ResetPasswordRequest:
     properties:
-      createdAt:
-        type: string
       email:
         type: string
-      expiresAt:
-        type: string
+      id:
+        type: integer
       new_password:
         type: string
       pin:

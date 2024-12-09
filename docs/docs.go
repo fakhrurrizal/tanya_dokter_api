@@ -972,14 +972,11 @@ const docTemplate = `{
         "reqres.ResetPasswordRequest": {
             "type": "object",
             "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
                 "email": {
                     "type": "string"
                 },
-                "expiresAt": {
-                    "type": "string"
+                "id": {
+                    "type": "integer"
                 },
                 "new_password": {
                     "type": "string"
