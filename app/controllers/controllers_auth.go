@@ -3,6 +3,8 @@ package controllers
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"fmt"
+	"math/rand"
 	"net/http"
 	"strings"
 	"tanya_dokter_app/app/models"
@@ -65,7 +67,6 @@ func SignUp(c echo.Context) error {
 		City:     request.City,
 		Province: request.Province,
 		Country:  request.Country,
-		Status:   1,
 	}
 
 	if request.RoleID == 0 {
@@ -88,7 +89,6 @@ func SignUp(c echo.Context) error {
 	})
 
 }
-
 
 // SignIn godoc
 // @Summary SignIn
@@ -265,7 +265,6 @@ func GetSignInUser(c echo.Context) error {
 	data.ZipCode = user.ZipCode
 	data.Status = user.Status
 	data.Gender = user.Gender
-	
 
 	if user.EmailVerifiedAt.Time.IsZero() {
 		data.EmailVerified = false
@@ -285,5 +284,99 @@ func GetSignInUser(c echo.Context) error {
 		"status":  200,
 		"data":    data,
 		"message": "Success to get user data",
+	})
+}
+
+// ForgotPassword godoc
+// @Summary Send Token Reset Password
+// @Description Send Token Reset Password
+// @Tags Auth
+// @Accept json
+// @Param x-csrf-token header string false "csrf token"
+// @Produce json
+// @Param signup body reqres.EmailRequest true "Send token to email for reset password"
+// @Success 200
+// @Router /v1/auth/forgot-password [post]
+// @Security ApiKeyAuth
+func ForgotPassword(c echo.Context) error {
+	var req reqres.EmailRequest
+
+	// Bind data dari request body
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewUnprocessableEntityError(err.Error()))
+	}
+	utils.StripTagsFromStruct(&req)
+
+	// Validasi input
+	if err := req.Validate(); err != nil {
+		errVal := err.(validation.Errors)
+		return c.JSON(http.StatusBadRequest, utils.NewInvalidInputError(errVal))
+	}
+
+	rand.Seed(time.Now().UnixNano())
+	pin := fmt.Sprintf("%06d", rand.Intn(1000000))
+	expiresAt := time.Now().Add(15 * time.Minute)
+
+	if err := repository.SaveResetRequest(req.Email, pin, expiresAt); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": "Failed to save reset request",
+		})
+	}
+
+	// Kirimkan PIN ke email pengguna
+	if err := repository.SendResetPassword(pin, req.Email); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": "Failed to send reset password email",
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
+		"message": "Reset password PIN has been sent",
+	})
+}
+
+// ResetPassword godoc
+// @Summary Reset User Password
+// @Description Reset User Password
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param Update body reqres.ResetPasswordRequest true "body to update password"
+// @Success 200
+// @Router /v1/auth/reset-password [post]
+// @Security ApiKeyAuth
+func ResetPassword(c echo.Context) error {
+	var req reqres.ResetPasswordRequest
+
+	// Bind data dari request body
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusUnprocessableEntity, utils.NewUnprocessableEntityError(err.Error()))
+	}
+	utils.StripTagsFromStruct(&req)
+
+	// Validasi input
+	if err := req.Validate(); err != nil {
+		errVal := err.(validation.Errors)
+		return c.JSON(http.StatusBadRequest, utils.NewInvalidInputError(errVal))
+	}
+
+	// Validasi kombinasi email dan PIN
+	if err := repository.ValidatePin(req.Email, req.Pin); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	// Reset password melalui repository
+	if err := repository.UpdatePassword(req.Email, req.NewPassword); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": "Failed to reset password",
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  200,
+		"message": "Password has been reset",
 	})
 }

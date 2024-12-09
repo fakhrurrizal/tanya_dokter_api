@@ -51,6 +51,48 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/auth/forgot-password": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Send Token Reset Password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Send Token Reset Password",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "csrf token",
+                        "name": "x-csrf-token",
+                        "in": "header"
+                    },
+                    {
+                        "description": "Send token to email for reset password",
+                        "name": "signup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.EmailRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v1/auth/resend-email-verification": {
             "post": {
                 "security": [
@@ -77,6 +119,42 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/reqres.EmailRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/auth/reset-password": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Reset User Password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reset User Password",
+                "parameters": [
+                    {
+                        "description": "body to update password",
+                        "name": "Update",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.ResetPasswordRequest"
                         }
                     }
                 ],
@@ -893,6 +971,29 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "zip_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "reqres.ResetPasswordRequest": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "expiresAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "new_password": {
+                    "type": "string"
+                },
+                "pin": {
                     "type": "string"
                 }
             }

@@ -67,6 +67,21 @@ definitions:
     - fullname
     - password
     type: object
+  reqres.ResetPasswordRequest:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      expiresAt:
+        type: string
+      id:
+        type: integer
+      new_password:
+        type: string
+      pin:
+        type: string
+    type: object
   reqres.SignInRequest:
     properties:
       email:
@@ -147,6 +162,32 @@ paths:
       summary: Email Verification for User
       tags:
       - Auth
+  /v1/auth/forgot-password:
+    post:
+      consumes:
+      - application/json
+      description: Send Token Reset Password
+      parameters:
+      - description: csrf token
+        in: header
+        name: x-csrf-token
+        type: string
+      - description: Send token to email for reset password
+        in: body
+        name: signup
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.EmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Send Token Reset Password
+      tags:
+      - Auth
   /v1/auth/resend-email-verification:
     post:
       consumes:
@@ -167,6 +208,28 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: ResendEmail User
+      tags:
+      - Auth
+  /v1/auth/reset-password:
+    post:
+      consumes:
+      - application/json
+      description: Reset User Password
+      parameters:
+      - description: body to update password
+        in: body
+        name: Update
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Reset User Password
       tags:
       - Auth
   /v1/auth/signin:

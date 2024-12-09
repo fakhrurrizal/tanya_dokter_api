@@ -28,6 +28,14 @@ type GlobalUser struct {
 	TwoFactorConfirmed bool      `json:"-" gorm:"column:two_factor_confirmed"`
 }
 
+type ResetPasswordRequest struct {
+	Email       string    `json:"email" gorm:"column:email"`
+	Pin         string    `json:"phone" gorm:"column:pin"`
+	NewPassword string    `json:"new_password"`
+	ExpiresAt   time.Time `json:"expires_at,omitempty" gorm:"column:expires_at"`
+	CreatedAt   time.Time
+}
+
 type GlobalUserAllResponse struct {
 	ID                 int                  `json:"id" gorm:"column:id;primaryKey:auto_increment"`
 	Email              string               `json:"email" gorm:"column:email"`

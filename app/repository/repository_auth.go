@@ -56,19 +56,17 @@ func GetVerificationToken(request *reqres.EmailRequest) (data string, err error)
 		log.Println("Failed to get user:", err)
 		return
 	}
-	// log.Println("Sending Email Preparation:", user)
+	rand.Seed(time.Now().UnixNano())
+	pin := fmt.Sprintf("%06d", rand.Intn(1000000))
 
-	go sendEmailAuthentification(request.Email, user.Fullname, "/assets/html/email-verification.html", "Verifikasi Email")
+	go sendEmailAuthentification(pin, request.Email, user.Fullname, "/assets/html/email-verification.html", "Verifikasi Email")
 
 	data = "Email sent successfully."
 	return
 }
 
-func sendEmailAuthentification(emailTo string, fullname, templateHTML string, subjectTitle string) {
+func sendEmailAuthentification(pin, emailTo string, fullname, templateHTML string, subjectTitle string) {
 	log.Println("Sending Email")
-
-	rand.Seed(time.Now().UnixNano())
-	pin := fmt.Sprintf("%06d", rand.Intn(1000000))
 
 	htmlFile, err := os.ReadFile(config.RootPath() + templateHTML)
 	if err != nil {
@@ -144,7 +142,6 @@ func sendEmailAuthentification(emailTo string, fullname, templateHTML string, su
 		log.Println("Success to send email to", emailTo)
 	}
 
-	log.Println("Generated PIN:", pin) // Untuk debugging, pastikan untuk menghapus ini di produksi
 }
 
 func EmailVerification(request *reqres.TokenRequest) (data string, err error) {
@@ -159,7 +156,6 @@ func EmailVerification(request *reqres.TokenRequest) (data string, err error) {
 		return "", fmt.Errorf("user not found: %w", err)
 	}
 
-	// Perbarui status verifikasi email
 	user.EmailVerifiedAt = null.TimeFrom(time.Now().In(location))
 	UpdateUser(user)
 
@@ -207,4 +203,97 @@ func GetBase64Logo() (string, error) {
 	// Mengonversi logo ke base64
 	encodedLogo := base64.StdEncoding.EncodeToString(logo)
 	return encodedLogo, nil
+}
+
+func SendResetPassword(pin, email string) (err error) {
+
+	user, err := GetUserByEmail(strings.ToLower(email))
+	if err != nil {
+		return
+	}
+
+	go sendEmailAuthentification(pin, user.Email, user.Fullname, "/assets/html/reset-password.html", "Permintaan Lupa Password")
+
+	return
+}
+
+func ResetPassword(pin, password, email string) (user models.GlobalUser, tokenOutput string, err error) {
+
+	decoded, err := base64.StdEncoding.DecodeString(pin)
+	if err != nil {
+		return
+	}
+
+	newdecoded, err := base64.StdEncoding.DecodeString(string(decoded))
+	if err != nil {
+		return
+	}
+	parts := strings.Split(string(newdecoded), "&")
+	err = config.DB.
+		Where("email = '" + parts[0] + "'").First(&user).Error
+	if err != nil {
+		return
+	}
+	if user.ID >= 1 {
+		newPassword := middlewares.BcryptPassword(password)
+		user.Password = newPassword
+		err = config.DB.Save(&user).Error
+		if err != nil {
+			return
+		}
+
+	}
+
+	tokenOutput, err = middlewares.AuthMakeToken(user)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func SaveResetRequest(email, pin string, expiresAt time.Time) error {
+	resetRequest := reqres.ResetPasswordRequest{
+		Email:     strings.ToLower(email),
+		Pin:       pin,
+		ExpiresAt: expiresAt,
+	}
+	if err := config.DB.Create(&resetRequest).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdatePassword(email, newPassword string) error {
+	var user models.GlobalUser
+
+	err := config.DB.Where("email = ?", email).First(&user).Error
+	if err != nil {
+		return errors.New("user not found")
+	}
+
+	hashedPassword := middlewares.BcryptPassword(newPassword)
+	user.Password = hashedPassword
+
+	if err := config.DB.Save(&user).Error; err != nil {
+		return err
+	}
+
+	err = config.DB.Where("email = ?", email).Delete(&models.ResetPasswordRequest{}).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func ValidatePin(email, pin string) error {
+	var resetRequest reqres.ResetPasswordRequest
+	err := config.DB.
+		Where("email = ? AND pin = ?", email, pin).
+		Where("expires_at > ?", time.Now()).
+		First(&resetRequest).Error
+	if err != nil {
+		return errors.New("invalid email or pin")
+	}
+	return nil
 }

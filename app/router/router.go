@@ -48,10 +48,10 @@ func Init(app *echo.Echo) {
 		{
 			auth.POST("/signin", controllers.SignIn)
 			auth.POST("/signup", controllers.SignUp)
-			// auth.POST("/forgot-password", controllers.ForgotPassword)
+			auth.POST("/forgot-password", controllers.ForgotPassword)
 
 			// auth.POST("/signin/google/mobile", controllers.GoogleSignInMobile)
-			// auth.POST("/reset-password", controllers.ResetPassword)
+			auth.POST("/reset-password", controllers.ResetPassword)
 			auth.POST("/resend-email-verification", controllers.ResendEmailVerification)
 			auth.POST("/email-verification", controllers.EmailVerification)
 			auth.GET("/user", controllers.GetSignInUser, middlewares.Auth())
