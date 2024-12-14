@@ -17,6 +17,7 @@ func CreateCategorySpecialist(data *reqres.GlobalCategorySpecialistRequest) (res
 		Name:        data.Name,
 		Description: data.Description,
 		Status:      data.Status,
+		Image:       data.Image,
 		Code:        data.Code,
 	}
 	var created bool
@@ -56,7 +57,7 @@ func GetCategorySpecialists(param reqres.ReqPaging) (data reqres.ResPaging) {
 		where += " AND status = " + param.Custom.(string)
 	}
 	if param.Search != "" {
-		where += " AND name ILIKE '%" + param.Search + "%'"
+		where += " AND (name ILIKE '%" + param.Search + "%' OR description ILIKE '%" + param.Search + "%')"
 	}
 
 	var totalFiltered int64

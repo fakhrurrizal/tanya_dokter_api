@@ -11,6 +11,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// CreateRole godoc
+// @Summary Create Role
+// @Description Create New Role
+// @Tags Role
+// @Produce json
+// @Param Body body reqres.GlobalRoleRequest true "Create body"
+// @Success 200
+// @Router /v1/role [post]
+// @Security ApiKeyAuth
+// @Security JwtToken
 func CreateRole(c echo.Context) error {
 	var input reqres.GlobalRoleRequest
 	if err := c.Bind(&input); err != nil {

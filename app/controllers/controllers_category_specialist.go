@@ -11,6 +11,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// CreateCategorySpecialist godoc
+// @Summary Create Category Specialist
+// @Description Create New Category Specialist
+// @Tags Category Specialist
+// @Produce json
+// @Param Body body reqres.GlobalCategorySpecialistRequest true "Create body"
+// @Success 200
+// @Router /v1/category-specialist [post]
+// @Security ApiKeyAuth
+// @Security JwtToken
 func CreateCategorySpecialist(c echo.Context) error {
 	var input reqres.GlobalCategorySpecialistRequest
 	if err := c.Bind(&input); err != nil {

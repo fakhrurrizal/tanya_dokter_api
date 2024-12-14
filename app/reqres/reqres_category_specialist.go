@@ -9,6 +9,7 @@ import (
 type GlobalCategorySpecialistRequest struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Image string `json:"image"`
 	Code        string `json:"code"`
 	Status      int    `json:"status"`
 }
@@ -25,6 +26,7 @@ type GlobalCategorySpecialistResponse struct {
 	models.CustomGormModel
 	Name        string `json:"name"`
 	Description string `json:"description"`
+		Image string `json:"image"`
 	Code        string `json:"code"`
 	Status      int    `json:"status"`
 }
@@ -38,5 +40,6 @@ type GlobalCategorySpecialistUpdateRequest struct {
 	Name        string `json:"name" validate:"required"`
 	Status      int    `json:"status"`
 	Description string `json:"description"`
+		Image string `json:"image"`
 	Code        string `json:"code"`
 }
