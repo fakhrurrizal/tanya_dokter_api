@@ -337,7 +337,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "CategorySpecialists"
+                    "CategorySpecialist"
                 ],
                 "summary": "Create CategorySpecialists",
                 "parameters": [

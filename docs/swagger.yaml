@@ -373,7 +373,7 @@ paths:
       - JwtToken: []
       summary: Create CategorySpecialists
       tags:
-      - CategorySpecialists
+      - CategorySpecialist
   /v1/category-specialist/{id}:
     delete:
       description: Delete Single CategorySpecialist by ID

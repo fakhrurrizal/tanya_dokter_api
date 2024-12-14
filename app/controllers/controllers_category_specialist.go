@@ -14,7 +14,7 @@ import (
 // GetCategorySpecialists godoc
 // @Summary Create CategorySpecialists
 // @Description Create New CategorySpecialists
-// @Tags CategorySpecialists
+// @Tags CategorySpecialist
 // @Produce json
 // @Param Body body reqres.GlobalCategorySpecialistRequest true "Create body"
 // @Success 200
