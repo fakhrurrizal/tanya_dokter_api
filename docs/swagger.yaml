@@ -4,11 +4,26 @@ definitions:
       email:
         type: string
     type: object
+  reqres.GlobalCategorySpecialistRequest:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
   reqres.GlobalCategorySpecialistUpdateRequest:
     properties:
       code:
         type: string
       description:
+        type: string
+      image:
         type: string
       name:
         type: string
@@ -16,6 +31,17 @@ definitions:
         type: integer
     required:
     - name
+    type: object
+  reqres.GlobalRoleRequest:
+    properties:
+      description:
+        type: string
+      flag:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
     type: object
   reqres.GlobalRoleUpdateRequest:
     properties:
@@ -328,6 +354,26 @@ paths:
       summary: Get All CategorySpecialists With Pagination
       tags:
       - CategorySpecialist
+    post:
+      description: Create New Category Specialist
+      parameters:
+      - description: Create body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalCategorySpecialistRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Create Category Specialist
+      tags:
+      - Category Specialist
   /v1/category-specialist/{id}:
     delete:
       description: Delete Single CategorySpecialist by ID
@@ -439,6 +485,26 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get All Role With Pagination
+      tags:
+      - Role
+    post:
+      description: Create New Role
+      parameters:
+      - description: Create body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Create Role
       tags:
       - Role
   /v1/role/{id}:

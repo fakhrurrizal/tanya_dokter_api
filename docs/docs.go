@@ -322,6 +322,40 @@ const docTemplate = `{
                         "description": "OK"
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Create New Category Specialist",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category Specialist"
+                ],
+                "summary": "Create Category Specialist",
+                "parameters": [
+                    {
+                        "description": "Create body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalCategorySpecialistRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         },
         "/v1/category-specialist/{id}": {
@@ -497,6 +531,40 @@ const docTemplate = `{
                         "description": "code (string)",
                         "name": "code",
                         "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Create New Role",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Create Role",
+                "parameters": [
+                    {
+                        "description": "Create body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalRoleRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -874,6 +942,26 @@ const docTemplate = `{
                 }
             }
         },
+        "reqres.GlobalCategorySpecialistRequest": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "reqres.GlobalCategorySpecialistUpdateRequest": {
             "type": "object",
             "required": [
@@ -884,6 +972,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "reqres.GlobalRoleRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "flag": {
                     "type": "string"
                 },
                 "name": {
