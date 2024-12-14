@@ -332,14 +332,14 @@ const docTemplate = `{
                         "JwtToken": []
                     }
                 ],
-                "description": "Create New Category Specialist",
+                "description": "Create New CategorySpecialists",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Category Specialist"
+                    "CategorySpecialists"
                 ],
-                "summary": "Create Category Specialist",
+                "summary": "Create CategorySpecialists",
                 "parameters": [
                     {
                         "description": "Create body",

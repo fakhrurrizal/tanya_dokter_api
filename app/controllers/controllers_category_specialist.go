@@ -12,9 +12,9 @@ import (
 )
 
 // CreateCategorySpecialist godoc
-// @Summary Create Category Specialist
-// @Description Create New Category Specialist
-// @Tags Category Specialist
+// @Summary Create CategorySpecialists
+// @Description Create New CategorySpecialists
+// @Tags CategorySpecialists
 // @Produce json
 // @Param Body body reqres.GlobalCategorySpecialistRequest true "Create body"
 // @Success 200

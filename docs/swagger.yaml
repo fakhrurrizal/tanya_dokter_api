@@ -355,7 +355,7 @@ paths:
       tags:
       - CategorySpecialist
     post:
-      description: Create New Category Specialist
+      description: Create New CategorySpecialists
       parameters:
       - description: Create body
         in: body
@@ -371,9 +371,9 @@ paths:
       security:
       - ApiKeyAuth: []
       - JwtToken: []
-      summary: Create Category Specialist
+      summary: Create CategorySpecialists
       tags:
-      - Category Specialist
+      - CategorySpecialists
   /v1/category-specialist/{id}:
     delete:
       description: Delete Single CategorySpecialist by ID
