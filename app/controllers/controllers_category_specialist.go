@@ -11,7 +11,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// CreateCategorySpecialist godoc
+// GetCategorySpecialists godoc
 // @Summary Create CategorySpecialists
 // @Description Create New CategorySpecialists
 // @Tags CategorySpecialists
