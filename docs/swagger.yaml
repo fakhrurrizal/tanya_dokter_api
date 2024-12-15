@@ -437,6 +437,101 @@ paths:
       summary: Update Single CategorySpecialist by ID
       tags:
       - CategorySpecialist
+  /v1/file:
+    get:
+      consumes:
+      - application/json
+      description: Mendapatkan List Files
+      parameters:
+      - description: search (string)
+        in: query
+        name: search
+        type: string
+      - description: page (int)
+        in: query
+        name: page
+        type: integer
+      - description: limit (int)
+        in: query
+        name: limit
+        type: integer
+      - description: token (string)
+        in: query
+        name: token
+        type: string
+      - description: company_id (int)
+        in: query
+        name: company_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Mendapatkan List Files
+      tags:
+      - File
+    post:
+      consumes:
+      - multipart/form-data
+      description: File Uploader
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: File Uploader
+      tags:
+      - File
+  /v1/file/multi:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Uploads multiple files
+      parameters:
+      - description: Files to upload
+        in: formData
+        name: files
+        required: true
+        type: file
+      - description: width
+        in: formData
+        name: width
+        type: string
+      - description: height
+        in: formData
+        name: height
+        type: string
+      - description: Folder to store
+        in: query
+        name: folder
+        type: string
+      - description: company_id (int)
+        in: query
+        name: company_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - JwtToken: []
+      summary: Upload multiple files
+      tags:
+      - File
   /v1/role:
     get:
       description: Get All Role With Pagination

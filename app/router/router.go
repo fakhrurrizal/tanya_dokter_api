@@ -81,6 +81,11 @@ func Init(app *echo.Echo) {
 			category_specialist.DELETE("/:id", controllers.DeleteCategorySpecialistByID, middlewares.Auth())
 			category_specialist.PUT("/:id", controllers.UpdateCategorySpecialistByID, middlewares.Auth())
 		}
+		files := api.Group("/file", middlewares.Auth())
+		{
+			files.POST("", controllers.UploadFile)
+			files.GET("", controllers.GetFile)
+		}
 	}
 	log.Printf("Server started...")
 }

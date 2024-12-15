@@ -79,5 +79,6 @@ type CustomGormModel struct {
 	ID        uint            `gorm:"primary_key" json:"id"`
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
+	EncodedID string          `json:"encoded_id" gorm:"-"`
 	DeletedAt *gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
 }
