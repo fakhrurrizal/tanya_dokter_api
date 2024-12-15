@@ -110,6 +110,9 @@ func BuildCategorySpecialistResponse(data models.GlobalCategorySpecialist) (resp
 	response.Status = data.Status
 	response.Description = data.Description
 	response.Code = data.Code
+	response.Image = data.Image
+	response.CreatedAt = data.CreatedAt
+
 
 	return response
 }
