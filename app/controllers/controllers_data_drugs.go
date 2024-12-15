@@ -11,18 +11,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// GetCategorySpecialists godoc
-// @Summary Create CategorySpecialists
-// @Description Create New CategorySpecialists
-// @Tags CategorySpecialist
+// GetDataDrugs godoc
+// @Summary Create DataDrugss
+// @Description Create New DataDrugss
+// @Tags DataDrugs
 // @Produce json
-// @Param Body body reqres.GlobalCategorySpecialistRequest true "Create body"
+// @Param Body body reqres.GlobalDataDrugsRequest true "Create body"
 // @Success 200
-// @Router /v1/category-specialist [post]
+// @Router /v1/data-drugs [post]
 // @Security ApiKeyAuth
 // @Security JwtToken
-func CreateCategorySpecialist(c echo.Context) error {
-	var input reqres.GlobalCategorySpecialistRequest
+func CreateDataDrugs(c echo.Context) error {
+	var input reqres.GlobalDataDrugsRequest
 	if err := c.Bind(&input); err != nil {
 		return c.JSON(400, utils.NewUnprocessableEntityError(err.Error()))
 	}
@@ -32,22 +32,22 @@ func CreateCategorySpecialist(c echo.Context) error {
 		return c.JSON(400, utils.NewInvalidInputError(errVal))
 	}
 
-	CategorySpecialist, err := repository.CreateCategorySpecialist(&input)
+	DataDrugs, err := repository.CreateDataDrugs(&input)
 	if err != nil {
-		return c.JSON(500, utils.Respond(500, err, "Failed to create CategorySpecialist"))
+		return c.JSON(500, utils.Respond(500, err, "Failed to create DataDrugs"))
 	}
 
 	return c.JSON(200, map[string]interface{}{
 		"status":  200,
-		"data":    CategorySpecialist,
-		"message": "Success to create CategorySpecialist",
+		"data":    DataDrugs,
+		"message": "Success to create DataDrugs",
 	})
 }
 
-// GetCategorySpecialists godoc
-// @Summary Get All CategorySpecialists With Pagination
-// @Description Get All CategorySpecialists With Pagination
-// @Tags CategorySpecialist
+// GetDataDrugs godoc
+// @Summary Get All DataDrugss With Pagination
+// @Description Get All DataDrugss With Pagination
+// @Tags DataDrugs
 // @Param search query string false "search (string)"
 // @Param page query integer false "page (int)"
 // @Param limit query integer false "limit (int)"
@@ -59,28 +59,28 @@ func CreateCategorySpecialist(c echo.Context) error {
 // @Param code query string false "code (string)"
 // @Produce json
 // @Success 200
-// @Router /v1/category-specialist [get]
+// @Router /v1/data-drugs [get]
 // @Security ApiKeyAuth
-func GetCategorySpecialists(c echo.Context) error {
+func GetDataDrugs(c echo.Context) error {
 
 	param := utils.PopulatePaging(c, "status")
-	data := repository.GetCategorySpecialists(param)
+	data := repository.GetDataDrugs(param)
 
 	return c.JSON(http.StatusOK, data)
 }
 
-// GetCategorySpecialistByID godoc
-// @Summary Get Single CategorySpecialist
-// @Description Get Single CategorySpecialist
-// @Tags CategorySpecialist
+// GetDataDrugsByID godoc
+// @Summary Get Single DataDrugs
+// @Description Get Single DataDrugs
+// @Tags DataDrugs
 // @Param id path integer true "ID"
 // @Produce json
 // @Success 200
-// @Router /v1/category-specialist/{id} [get]
+// @Router /v1/data-drugs/{id} [get]
 // @Security ApiKeyAuth
-func GetCategorySpecialistByID(c echo.Context) error {
+func GetDataDrugsByID(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, err := repository.GetCategorySpecialistByID(id)
+	data, err := repository.GetDataDrugsByID(id)
 	if err != nil {
 		return c.JSON(404, utils.Respond(404, err, "Record not found"))
 	}
@@ -91,26 +91,26 @@ func GetCategorySpecialistByID(c echo.Context) error {
 	})
 }
 
-// UpdateCategorySpecialistByID godoc
-// @Summary Update Single CategorySpecialist by ID
-// @Description Update Single CategorySpecialist by ID
-// @Tags CategorySpecialist
+// UpdateDataDrugsByID godoc
+// @Summary Update Single DataDrugs by ID
+// @Description Update Single DataDrugs by ID
+// @Tags DataDrugs
 // @Produce json
 // @Param id path integer true "ID"
-// @Param Body body reqres.GlobalCategorySpecialistUpdateRequest true "Update body"
+// @Param Body body reqres.GlobalDataDrugsUpdateRequest true "Update body"
 // @Success 200
-// @Router /v1/category-specialist/{id} [put]
+// @Router /v1/data-drugs/{id} [put]
 // @Security ApiKeyAuth
 // @Security JwtToken
-func UpdateCategorySpecialistByID(c echo.Context) error {
-	var input reqres.GlobalCategorySpecialistUpdateRequest
+func UpdateDataDrugsByID(c echo.Context) error {
+	var input reqres.GlobalDataDrugsUpdateRequest
 	if err := c.Bind(&input); err != nil {
 		return c.JSON(400, utils.NewUnprocessableEntityError(err.Error()))
 	}
 	utils.StripTagsFromStruct(&input)
 
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, err := repository.GetCategorySpecialistByIDPlain(id)
+	data, err := repository.GetDataDrugsByIDPlain(id)
 	if err != nil {
 		return c.JSON(500, utils.Respond(404, err, "Record not found"))
 	}
@@ -122,17 +122,19 @@ func UpdateCategorySpecialistByID(c echo.Context) error {
 		data.Description = input.Description
 	}
 
-	if input.Image != "" {
-		data.Image = input.Image
-	}
-
 	if input.Code != "" {
 		data.Code = input.Code
 	}
 
-	data.Status = input.Status
+	if input.Image != "" {
+		data.Image = input.Image
+	}
 
-	dataUpdate, err := repository.UpdateCategorySpecialist(data)
+	if input.Usage != "" {
+		data.Usage = input.Usage
+	}
+
+	dataUpdate, err := repository.UpdateDataDrugs(data)
 	if err != nil {
 		return c.JSON(500, utils.Respond(500, err, "Failed to update"))
 	}
@@ -144,24 +146,24 @@ func UpdateCategorySpecialistByID(c echo.Context) error {
 	})
 }
 
-// DeleteCategorySpecialistByID godoc
-// @Summary Delete Single CategorySpecialist by ID
-// @Description Delete Single CategorySpecialist by ID
-// @Tags CategorySpecialist
+// DeleteDataDrugsByID godoc
+// @Summary Delete Single DataDrugs by ID
+// @Description Delete Single DataDrugs by ID
+// @Tags DataDrugs
 // @Produce json
 // @Param id path integer true "ID"
 // @Success 200
-// @Router /v1/category-specialist/{id} [delete]
+// @Router /v1/data-drugs/{id} [delete]
 // @Security ApiKeyAuth
 // @Security JwtToken
-func DeleteCategorySpecialistByID(c echo.Context) error {
+func DeleteDataDrugsByID(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	data, err := repository.GetCategorySpecialistByIDPlain(id)
+	data, err := repository.GetDataDrugsByIDPlain(id)
 	if err != nil {
 		return c.JSON(500, utils.Respond(404, err, "Record not found"))
 	}
 
-	_, err = repository.DeleteCategorySpecialist(data)
+	_, err = repository.DeleteDataDrugs(data)
 	if err != nil {
 		return c.JSON(500, utils.Respond(500, err, "Failed to delete"))
 	}

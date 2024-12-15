@@ -454,6 +454,222 @@
                 }
             }
         },
+        "/v1/data-drugs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get All DataDrugss With Pagination",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataDrugs"
+                ],
+                "summary": "Get All DataDrugss With Pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "search (string)",
+                        "name": "search",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "page (int)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "limit (int)",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "sort (ASC/DESC)",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "order by (default: id)",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "status (true (active) or false (inactive))",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_top",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_at_margin_top (format: 2006-01-02)",
+                        "name": "created_at_margin_bottom",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "code (string)",
+                        "name": "code",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Create New DataDrugss",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataDrugs"
+                ],
+                "summary": "Create DataDrugss",
+                "parameters": [
+                    {
+                        "description": "Create body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalDataDrugsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/v1/data-drugs/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get Single DataDrugs",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataDrugs"
+                ],
+                "summary": "Get Single DataDrugs",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Update Single DataDrugs by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataDrugs"
+                ],
+                "summary": "Update Single DataDrugs by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalDataDrugsUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Delete Single DataDrugs by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataDrugs"
+                ],
+                "summary": "Delete Single DataDrugs by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v1/file": {
             "get": {
                 "security": [
@@ -1127,6 +1343,52 @@
                 },
                 "status": {
                     "type": "integer"
+                }
+            }
+        },
+        "reqres.GlobalDataDrugsRequest": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                }
+            }
+        },
+        "reqres.GlobalDataDrugsUpdateRequest": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "usage": {
+                    "type": "string"
                 }
             }
         },

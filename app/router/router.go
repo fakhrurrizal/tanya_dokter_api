@@ -81,6 +81,14 @@ func Init(app *echo.Echo) {
 			category_specialist.DELETE("/:id", controllers.DeleteCategorySpecialistByID, middlewares.Auth())
 			category_specialist.PUT("/:id", controllers.UpdateCategorySpecialistByID, middlewares.Auth())
 		}
+		data_drugs := api.Group("/data-drugs")
+		{
+			data_drugs.POST("", controllers.CreateDataDrugs, middlewares.Auth())
+			data_drugs.GET("", controllers.GetDataDrugs)
+			data_drugs.GET("/:id", controllers.GetDataDrugsByID)
+			data_drugs.DELETE("/:id", controllers.DeleteDataDrugsByID, middlewares.Auth())
+			data_drugs.PUT("/:id", controllers.UpdateDataDrugsByID, middlewares.Auth())
+		}
 		files := api.Group("/file", middlewares.Auth())
 		{
 			files.POST("", controllers.UploadFile)

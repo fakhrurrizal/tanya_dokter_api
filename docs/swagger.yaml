@@ -32,6 +32,36 @@ definitions:
     required:
     - name
     type: object
+  reqres.GlobalDataDrugsRequest:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      usage:
+        type: string
+    type: object
+  reqres.GlobalDataDrugsUpdateRequest:
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      status:
+        type: integer
+      usage:
+        type: string
+    required:
+    - name
+    type: object
   reqres.GlobalRoleRequest:
     properties:
       description:
@@ -437,6 +467,139 @@ paths:
       summary: Update Single CategorySpecialist by ID
       tags:
       - CategorySpecialist
+  /v1/data-drugs:
+    get:
+      description: Get All DataDrugss With Pagination
+      parameters:
+      - description: search (string)
+        in: query
+        name: search
+        type: string
+      - description: page (int)
+        in: query
+        name: page
+        type: integer
+      - description: limit (int)
+        in: query
+        name: limit
+        type: integer
+      - description: sort (ASC/DESC)
+        in: query
+        name: sort
+        type: string
+      - description: 'order by (default: id)'
+        in: query
+        name: order
+        type: string
+      - description: status (true (active) or false (inactive))
+        in: query
+        name: status
+        type: boolean
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_top
+        type: string
+      - description: 'created_at_margin_top (format: 2006-01-02)'
+        in: query
+        name: created_at_margin_bottom
+        type: string
+      - description: code (string)
+        in: query
+        name: code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get All DataDrugss With Pagination
+      tags:
+      - DataDrugs
+    post:
+      description: Create New DataDrugss
+      parameters:
+      - description: Create body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalDataDrugsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Create DataDrugss
+      tags:
+      - DataDrugs
+  /v1/data-drugs/{id}:
+    delete:
+      description: Delete Single DataDrugs by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Delete Single DataDrugs by ID
+      tags:
+      - DataDrugs
+    get:
+      description: Get Single DataDrugs
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Get Single DataDrugs
+      tags:
+      - DataDrugs
+    put:
+      description: Update Single DataDrugs by ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalDataDrugsUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Update Single DataDrugs by ID
+      tags:
+      - DataDrugs
   /v1/file:
     get:
       consumes:
