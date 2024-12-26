@@ -252,7 +252,7 @@ func ResetPassword(pin, password, email string) (user models.GlobalUser, tokenOu
 }
 
 func SaveResetRequest(email, pin string, expiresAt time.Time) error {
-	resetRequest := reqres.SaveResetPasswordRequest{
+	resetRequest := models.ResetPasswordRequest{
 		Email:     strings.ToLower(email),
 		Pin:       pin,
 		ExpiresAt: expiresAt,

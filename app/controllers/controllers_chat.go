@@ -76,7 +76,7 @@ func HandleWebSocket(c echo.Context) error {
 		message.SenderID = userPengirim
 		message.Message = string(messageBytes)
 		message.ReceiverID = userPenerima
-		message.Status = 1
+		message.Status = 0
 		message.Timestamp = time.Now().Unix()
 
 		_, err = repository.NewChatRepository(&message)

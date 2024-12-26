@@ -7,4 +7,5 @@ type GlobalMessages struct {
 	Message    string `json:"message"`
 	File       string `json:"file,omitempty"`
 	Timestamp  int64  `json:"timestamp"`
+	Status     int    `json:"status"`
 }
