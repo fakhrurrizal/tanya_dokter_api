@@ -48,12 +48,13 @@
     </div>
 
     <script>
-      const user_pengirim = 36;
-      const user_penerima = 8;
-      var loc = window.location;
-      var uri = `${loc.protocol === 'https:' ? 'wss' : 'ws'}://${
-        loc.host
-      }/v1/chat/ws/${user_pengirim}/${user_penerima}`;
+      const SenderID = 36;
+      const ReceiverID = 8;
+      var loc = `${window.location.protocol}//${window.location.hostname}`;
+      console.log('loc', loc);
+      var uri = `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${
+        window.location.host
+      }/v1/chat/ws/${SenderID}/${ReceiverID}`;
 
       const socket = new WebSocket(uri);
 
@@ -65,7 +66,8 @@
         try {
           const message = JSON.parse(event.data);
           const messagesDiv = document.getElementById('messages');
-          messagesDiv.innerHTML += '<p>' + message.message + '</p>';
+          messagesDiv.innerHTML +=
+            '<p>' + message.message + message.sender_id + '</p>';
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         } catch (err) {
           console.error('Error parsing message:', err);

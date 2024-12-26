@@ -30,6 +30,8 @@ func Init(app *echo.Echo) {
 
 	app.GET("/", controllers.Index)
 	app.GET("/test", controllers.Test)
+	app.GET("/chat/user1", controllers.User1)
+	app.GET("/chat/user2", controllers.User2)
 	app.GET("/version", controllers.Version)
 	app.GET("/swagger/*", echoSwagger.WrapHandler)
 	app.GET("/docs", func(c echo.Context) error {
@@ -96,9 +98,9 @@ func Init(app *echo.Echo) {
 		}
 		chat := api.Group("/chat")
 		{
-			chat.GET("/messages/:user_pengirim/:user_penerima", controllers.GetMessagesByUsersHandler)
-			chat.GET("/ws/:user_pengirim/:user_penerima", controllers.HandleWebSocket) // WebSocket untuk komunikasi real-time
-			chat.POST("/send", controllers.SendMessageHandler)                         // Mengirim pesan baru
+			chat.GET("/messages/:sender_id/:receiver_id", controllers.GetMessagesByUsersHandler)
+			chat.GET("/ws/:sender_id/:receiver_id", controllers.HandleWebSocket)
+			chat.POST("/send", controllers.SendMessageHandler)
 		}
 
 	}

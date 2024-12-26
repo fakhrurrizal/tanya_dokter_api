@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"fmt"
+	"html/template"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"os/exec"
 	"strconv"
@@ -13,14 +15,58 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Index(c echo.Context) error {
-	content, err := ioutil.ReadFile(config.RootPath() + "/assets/html/chat.html")
-	if err != nil {
-		return c.String(500, "Error reading HTML file")
+func User1(c echo.Context) error {
+
+	data := map[string]interface{}{
+		"BaseUrl": config.LoadConfig().BaseUrl,
 	}
 
-	// Mengembalikan konten file HTML
-	return c.HTMLBlob(200, content)
+	// Baca file HTML
+	content, err := ioutil.ReadFile(config.RootPath() + "/assets/html/chat1.html")
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error reading HTML file")
+	}
+
+	tmpl, err := template.New("chat").Parse(string(content))
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error parsing HTML template")
+	}
+
+	err = tmpl.Execute(c.Response(), data)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error rendering template")
+	}
+
+	return nil
+}
+
+func User2(c echo.Context) error {
+
+	data := map[string]interface{}{
+		"BaseUrl": config.LoadConfig().BaseUrl,
+	}
+
+	// Baca file HTML
+	content, err := ioutil.ReadFile(config.RootPath() + "/assets/html/chat2.html")
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error reading HTML file")
+	}
+
+	tmpl, err := template.New("chat").Parse(string(content))
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error parsing HTML template")
+	}
+
+	err = tmpl.Execute(c.Response(), data)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, "Error rendering template")
+	}
+
+	return nil
+}
+
+func Index(c echo.Context) error {
+	return c.JSON(200, "Welcome "+config.LoadConfig().AppName)
 }
 
 type Commit struct {
