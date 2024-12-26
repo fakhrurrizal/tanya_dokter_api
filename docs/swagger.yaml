@@ -32,6 +32,21 @@ definitions:
     required:
     - name
     type: object
+  reqres.GlobalChatRequest:
+    properties:
+      file:
+        type: string
+      message:
+        type: string
+      receiver_id:
+        type: string
+      sender_id:
+        type: string
+      status:
+        type: integer
+      timestamp:
+        type: integer
+    type: object
   reqres.GlobalDataDrugsRequest:
     properties:
       code:
@@ -828,6 +843,37 @@ paths:
       summary: Update Single Role by ID
       tags:
       - Role
+  /v1/role/{sender_id}/{receiver_id}:
+    get:
+      description: Handle WebSocket connection
+      parameters:
+      - description: sender_id
+        in: path
+        name: sender_id
+        required: true
+        type: integer
+      - description: receiver_id
+        in: path
+        name: receiver_id
+        required: true
+        type: integer
+      - description: Handle body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalChatRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Handle WebSocket connection
+      tags:
+      - HandleWebSocket
   /v1/user:
     get:
       description: Get All Users With Pagination

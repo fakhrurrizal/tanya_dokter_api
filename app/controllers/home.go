@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"strconv"
@@ -13,7 +14,13 @@ import (
 )
 
 func Index(c echo.Context) error {
-	return c.JSON(200, "Welcome "+config.LoadConfig().AppName)
+	content, err := ioutil.ReadFile(config.RootPath() + "/assets/html/chat.html")
+	if err != nil {
+		return c.String(500, "Error reading HTML file")
+	}
+
+	// Mengembalikan konten file HTML
+	return c.HTMLBlob(200, content)
 }
 
 type Commit struct {

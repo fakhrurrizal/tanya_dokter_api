@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Chat</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+      #messages {
+        height: 300px;
+        width: 100%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: scroll;
+      }
+      #input-container {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+      }
+      #input {
+        width: 80%;
+        padding: 10px;
+        margin-right: 10px;
+      }
+      #send {
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chat-container">
+      <h2>Real-Time Chat</h2>
+      <div id="messages"></div>
+      <div id="input-container">
+        <input type="text" id="input" placeholder="Type your message..." />
+        <button id="send">Send</button>
+      </div>
+    </div>
+
+    <script>
+      const user_pengirim = 36;
+      const user_penerima = 8;
+      var loc = window.location;
+      var uri = `${loc.protocol === 'https:' ? 'wss' : 'ws'}://${
+        loc.host
+      }/v1/chat/ws/${user_pengirim}/${user_penerima}`;
+
+      const socket = new WebSocket(uri);
+
+      socket.onopen = function () {
+        console.log('Connected to the WebSocket server');
+      };
+
+      socket.onmessage = function (event) {
+        try {
+          const message = JSON.parse(event.data);
+          const messagesDiv = document.getElementById('messages');
+          messagesDiv.innerHTML += '<p>' + message.message + '</p>';
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        } catch (err) {
+          console.error('Error parsing message:', err);
+        }
+      };
+
+      // Ketika terjadi error pada WebSocket
+      socket.onerror = function (error) {
+        console.error('WebSocket Error: ', error);
+      };
+
+      // Ketika koneksi WebSocket ditutup
+      socket.onclose = function () {
+        console.log('Disconnected from WebSocket server');
+      };
+
+      // Fungsi untuk mengirim pesan ke WebSocket saat tombol kirim diklik
+      document.getElementById('send').onclick = function () {
+        const inputField = document.getElementById('input');
+        const message = inputField.value;
+        if (message) {
+          socket.send(JSON.stringify(message)); // Kirim pesan ke WebSocket
+          inputField.value = ''; // Bersihkan input setelah mengirim
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -6,5 +6,5 @@ type GlobalDataDrugs struct {
 	Description string `json:"description" gorm:"column:description"`
 	Image       string `json:"image" gorm:"column:image"`
 	Code        string `json:"code" gorm:"column:code"`
-	Usage        string `json:"usage" gorm:"column:usage"`
+	Usage       string `json:"usage" gorm:"column:usage"`
 }

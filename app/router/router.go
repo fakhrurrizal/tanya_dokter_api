@@ -94,6 +94,13 @@ func Init(app *echo.Echo) {
 			files.POST("", controllers.UploadFile)
 			files.GET("", controllers.GetFile)
 		}
+		chat := api.Group("/chat")
+		{
+			chat.GET("/messages/:user_pengirim/:user_penerima", controllers.GetMessagesByUsersHandler)
+			chat.GET("/ws/:user_pengirim/:user_penerima", controllers.HandleWebSocket) // WebSocket untuk komunikasi real-time
+			chat.POST("/send", controllers.SendMessageHandler)                         // Mengirim pesan baru
+		}
+
 	}
 	log.Printf("Server started...")
 }

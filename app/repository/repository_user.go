@@ -176,8 +176,7 @@ func GetUserByID(id int) (response reqres.GlobalUserResponse, err error) {
 }
 
 func DeleteUser(request models.GlobalUser) (models.GlobalUser, error) {
-	var err error
-	err = config.DB.Delete(&request).Error
+	err := config.DB.Delete(&request).Error
 
 	return request, err
 }
