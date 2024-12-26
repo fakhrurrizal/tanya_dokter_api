@@ -31,7 +31,7 @@ var (
 // @Param receiver_id path integer true "receiver_id"
 // @Param Body body reqres.GlobalChatRequest true "Handle body"
 // @Success 200
-// @Router /v1/role/{sender_id}/{receiver_id} [get]
+// @Router /v1/chat/ws/{sender_id}/{receiver_id} [get]
 // @Security ApiKeyAuth
 // @Security JwtToken
 func HandleWebSocket(c echo.Context) error {

@@ -482,6 +482,37 @@ paths:
       summary: Update Single CategorySpecialist by ID
       tags:
       - CategorySpecialist
+  /v1/chat/ws/{sender_id}/{receiver_id}:
+    get:
+      description: Handle WebSocket connection
+      parameters:
+      - description: sender_id
+        in: path
+        name: sender_id
+        required: true
+        type: integer
+      - description: receiver_id
+        in: path
+        name: receiver_id
+        required: true
+        type: integer
+      - description: Handle body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/reqres.GlobalChatRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      - JwtToken: []
+      summary: Handle WebSocket connection
+      tags:
+      - HandleWebSocket
   /v1/data-drugs:
     get:
       description: Get All DataDrugss With Pagination
@@ -843,37 +874,6 @@ paths:
       summary: Update Single Role by ID
       tags:
       - Role
-  /v1/role/{sender_id}/{receiver_id}:
-    get:
-      description: Handle WebSocket connection
-      parameters:
-      - description: sender_id
-        in: path
-        name: sender_id
-        required: true
-        type: integer
-      - description: receiver_id
-        in: path
-        name: receiver_id
-        required: true
-        type: integer
-      - description: Handle body
-        in: body
-        name: Body
-        required: true
-        schema:
-          $ref: '#/definitions/reqres.GlobalChatRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      security:
-      - ApiKeyAuth: []
-      - JwtToken: []
-      summary: Handle WebSocket connection
-      tags:
-      - HandleWebSocket
   /v1/user:
     get:
       description: Get All Users With Pagination

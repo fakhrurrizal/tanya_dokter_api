@@ -462,6 +462,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/chat/ws/{sender_id}/{receiver_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "JwtToken": []
+                    }
+                ],
+                "description": "Handle WebSocket connection",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HandleWebSocket"
+                ],
+                "summary": "Handle WebSocket connection",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "sender_id",
+                        "name": "sender_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "receiver_id",
+                        "name": "receiver_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Handle body",
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/reqres.GlobalChatRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/v1/data-drugs": {
             "get": {
                 "security": [
@@ -1038,56 +1088,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/v1/role/{sender_id}/{receiver_id}": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    },
-                    {
-                        "JwtToken": []
-                    }
-                ],
-                "description": "Handle WebSocket connection",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "HandleWebSocket"
-                ],
-                "summary": "Handle WebSocket connection",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "sender_id",
-                        "name": "sender_id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "receiver_id",
-                        "name": "receiver_id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Handle body",
-                        "name": "Body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/reqres.GlobalChatRequest"
-                        }
                     }
                 ],
                 "responses": {
