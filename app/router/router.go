@@ -98,8 +98,8 @@ func Init(app *echo.Echo) {
 		}
 		chat := api.Group("/chat")
 		{
-			chat.GET("/messages/:sender_id/:receiver_id", controllers.GetMessagesByUsersHandler, middlewares.Auth())
-			chat.GET("/ws/:sender_id/:receiver_id", controllers.HandleWebSocket, middlewares.Auth())
+			chat.GET("/messages/:sender_id/:receiver_id", controllers.GetMessagesByUsersHandler,)
+			chat.GET("/ws/:sender_id/:receiver_id", controllers.HandleWebSocket)
 			chat.POST("/send", controllers.SendMessageHandler)
 		}
 
