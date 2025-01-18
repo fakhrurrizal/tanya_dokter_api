@@ -37,7 +37,7 @@ func CreateUser(status int, verification bool, data *reqres.GlobalUserRequest, u
 			Password:        passwordHashed,
 			Fullname:        data.Fullname,
 			Phone:           data.Phone,
-			Status:          data.Status,
+			Status:          status,
 			RoleID:          data.RoleID,
 			Address:         data.Address,
 			Village:         data.Village,

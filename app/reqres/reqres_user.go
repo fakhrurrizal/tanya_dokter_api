@@ -98,6 +98,7 @@ type GlobalUserResponse struct {
 	District     string               `json:"district"`
 	City         string               `json:"city"`
 	Province     string               `json:"province"`
+	Experience   string               `json:"experience"`
 	Country      string               `json:"country"`
 	ZipCode      string               `json:"zip_code"`
 	Role         GlobalIDNameResponse `json:"role"`
