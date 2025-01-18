@@ -1159,6 +1159,12 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "description": "category_id (int)",
+                        "name": "category_id",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "created_at_margin_top (format: 2006-01-02)",
                         "name": "created_at_margin_top",
@@ -1524,7 +1530,13 @@ const docTemplate = `{
                 "avatar": {
                     "type": "string"
                 },
+                "category_id": {
+                    "type": "integer"
+                },
                 "city": {
+                    "type": "string"
+                },
+                "code": {
                     "type": "string"
                 },
                 "country": {
@@ -1534,6 +1546,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
+                    "type": "string"
+                },
+                "experience": {
                     "type": "string"
                 },
                 "fullname": {

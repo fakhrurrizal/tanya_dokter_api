@@ -93,7 +93,7 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 	return response
 }
 
-func GetUsers(roleId int, createdAtMarginTop, createdAtMarginBottom string, param reqres.ReqPaging) (data reqres.ResPaging) {
+func GetUsers(roleId, categoryID int, createdAtMarginTop, createdAtMarginBottom string, param reqres.ReqPaging) (data reqres.ResPaging) {
 	var responses []models.GlobalUser
 	where := "deleted_at IS NULL"
 
@@ -117,12 +117,16 @@ func GetUsers(roleId int, createdAtMarginTop, createdAtMarginBottom string, para
 		where += " AND role_id = " + strconv.Itoa(roleId)
 	}
 
+	if categoryID > 0 {
+		where += " AND category_id = " + strconv.Itoa(categoryID)
+	}
+
 	if param.Custom != "" {
 		where += " AND status = " + param.Custom.(string)
 	}
 
 	if param.Search != "" {
-		where += " AND (fullname ILIKE '%" + param.Search + "%' OR email ILIKE '%" + param.Search + "%')"
+		where += " AND (fullname ILIKE '%" + param.Search + "%' OR email ILIKE '%" + param.Search + "%' OR code ILIKE '%" + param.Search + "%')"
 	}
 
 	var totalFiltered int64

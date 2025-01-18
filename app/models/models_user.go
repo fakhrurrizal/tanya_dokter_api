@@ -10,12 +10,14 @@ import (
 type GlobalUser struct {
 	CustomGormModel
 	Email              string    `json:"email" gorm:"column:email"`
+	Code              string    `json:"code" gorm:"column:code"`
 	Password           string    `json:"-" gorm:"column:password"`
 	Fullname           string    `json:"fullname" gorm:"column:fullname"`
 	Phone              string    `json:"phone" gorm:"column:phone"`
 	Status             int       `json:"status" gorm:"column:status"`
 	Gender             string    `json:"gender" gorm:"column:gender"`
 	Avatar             string    `json:"avatar" gorm:"column:avatar"`
+	Experience         string    `json:"experience" gorm:"column:experience"`
 	Address            string    `json:"address" gorm:"column:address"`
 	Village            string    `json:"village" gorm:"type: varchar(255)"`
 	District           string    `json:"district" gorm:"type: varchar(255)"`
@@ -24,6 +26,7 @@ type GlobalUser struct {
 	Country            string    `json:"country"`
 	ZipCode            string    `json:"zip_code" gorm:"type: varchar(50)"`
 	RoleID             int       `json:"role_id"`
+	CategoryID         int       `json:"category_id"`
 	EmailVerifiedAt    null.Time `json:"-" gorm:"column:email_verified_at"`
 	TwoFactorConfirmed bool      `json:"-" gorm:"column:two_factor_confirmed"`
 }

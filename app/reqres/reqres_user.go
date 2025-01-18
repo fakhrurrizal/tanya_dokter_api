@@ -16,13 +16,16 @@ type GlobalUserRequest struct {
 	Password     string `json:"password" validate:"required"`
 	Phone        string `json:"phone"`
 	Address      string `json:"address"`
+	Code         string `json:"code"`
 	Village      string `json:"village"`
 	District     string `json:"district"`
 	City         string `json:"city"`
 	Province     string `json:"province"`
 	Country      string `json:"country"`
+	Experience   string `json:"experience"`
 	ZipCode      string `json:"zip_code"`
 	RoleID       int    `json:"role_id"`
+	CategoryID   int    `json:"category_id"`
 	Status       int    `json:"status"`
 	AutoVerified bool   `json:"auto_verified"`
 }
@@ -97,6 +100,7 @@ type GlobalUserResponse struct {
 	Country      string               `json:"country"`
 	ZipCode      string               `json:"zip_code"`
 	Role         GlobalIDNameResponse `json:"role"`
+	Category     GlobalIDNameResponse `json:"category"`
 	AutoVerified bool                 `json:"auto_verified"`
 	Gender       string               `json:"gender"`
 	Status       int                  `json:"status"`

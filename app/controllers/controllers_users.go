@@ -64,6 +64,7 @@ func CreateUser(c echo.Context) error {
 // @Param order query string false "order by (default: id)"
 // @Param status query boolean false "status (true (active) or false (inactive))"
 // @Param role_id query integer false "role_id (int)"
+// @Param category_id query integer false "category_id (int)"
 // @Param created_at_margin_top query string false "created_at_margin_top (format: 2006-01-02)"
 // @Param created_at_margin_bottom query string false "created_at_margin_top (format: 2006-01-02)"
 // @Produce json
@@ -74,11 +75,12 @@ func CreateUser(c echo.Context) error {
 func GetUsers(c echo.Context) error {
 
 	roleID, _ := strconv.Atoi(c.QueryParam("role_id"))
+	categoryID, _ := strconv.Atoi(c.QueryParam("category_id"))
 	createdAtMarginTop := c.QueryParam("created_at_margin_top")
 	createdAtMarginBottom := c.QueryParam("created_at_margin_bottom")
 
 	param := utils.PopulatePaging(c, "status")
-	data := repository.GetUsers(roleID, createdAtMarginTop, createdAtMarginBottom, param)
+	data := repository.GetUsers(roleID,categoryID, createdAtMarginTop, createdAtMarginBottom, param)
 
 	return c.JSON(http.StatusOK, data)
 }

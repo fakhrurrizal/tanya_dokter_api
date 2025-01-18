@@ -107,13 +107,19 @@ definitions:
         type: boolean
       avatar:
         type: string
+      category_id:
+        type: integer
       city:
+        type: string
+      code:
         type: string
       country:
         type: string
       district:
         type: string
       email:
+        type: string
+      experience:
         type: string
       fullname:
         type: string
@@ -905,6 +911,10 @@ paths:
       - description: role_id (int)
         in: query
         name: role_id
+        type: integer
+      - description: category_id (int)
+        in: query
+        name: category_id
         type: integer
       - description: 'created_at_margin_top (format: 2006-01-02)'
         in: query
