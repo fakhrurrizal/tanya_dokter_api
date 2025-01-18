@@ -66,6 +66,7 @@ func CreateUser(status int, verification bool, data *reqres.GlobalUserRequest, u
 func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserResponse) {
 
 	var roles models.GlobalRole
+	var categories models.GlobalCategorySpecialist
 
 	response.CustomGormModel = data.CustomGormModel
 	response.Avatar = data.Avatar
@@ -81,12 +82,22 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 	response.ZipCode = data.ZipCode
 	response.Status = data.Status
 	response.Gender = data.Gender
+	response.Code = data.Code
+	response.Experience = data.Experience
 
 	if data.RoleID > 0 {
 		roles, _ = GetRoleByIDPlain(data.RoleID)
 		response.Role = reqres.GlobalIDNameResponse{
 			ID:   int(roles.ID),
 			Name: roles.Name,
+		}
+	}
+
+	if data.CategoryID > 0 {
+		categories, _ = GetCategorySpecialistByIDPlain(data.CategoryID)
+		response.Role = reqres.GlobalIDNameResponse{
+			ID:   int(categories.ID),
+			Name: categories.Name,
 		}
 	}
 
