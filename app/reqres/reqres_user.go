@@ -88,6 +88,7 @@ func (request GlobalUserProfileUpdateRequest) Validate() error {
 type GlobalUserResponse struct {
 	models.CustomGormModel
 	Avatar       string               `json:"avatar"`
+	Code         string               `json:"code"`
 	Fullname     string               `json:"fullname" validate:"required"`
 	Email        string               `json:"email" validate:"required"`
 	Password     string               `json:"password" validate:"required"`
