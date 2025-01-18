@@ -95,7 +95,7 @@ func BuildUserResponse(data models.GlobalUser) (response reqres.GlobalUserRespon
 
 	if data.CategoryID > 0 {
 		categories, _ = GetCategorySpecialistByIDPlain(data.CategoryID)
-		response.Role = reqres.GlobalIDNameResponse{
+		response.Category = reqres.GlobalIDNameResponse{
 			ID:   int(categories.ID),
 			Name: categories.Name,
 		}
