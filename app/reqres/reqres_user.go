@@ -34,7 +34,6 @@ func (request GlobalUserRequest) Validate() error {
 	return validation.ValidateStruct(
 		&request,
 		validation.Field(&request.Email, validation.Required, is.Email),
-		validation.Field(&request.Password, validation.Required),
 		validation.Field(&request.Fullname, validation.Required),
 	)
 }

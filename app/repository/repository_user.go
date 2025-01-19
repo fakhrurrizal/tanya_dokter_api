@@ -49,6 +49,9 @@ func CreateUser(status int, verification bool, data *reqres.GlobalUserRequest, u
 			EmailVerifiedAt: verifiedAt,
 			ZipCode:         data.ZipCode,
 			Gender:          data.Gender,
+			CategoryID:      data.CategoryID,
+			Experience:      data.Experience,
+			Code:            data.Code,
 		}
 		err = config.DB.Create(&userInput).Error
 
