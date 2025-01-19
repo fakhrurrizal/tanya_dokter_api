@@ -80,7 +80,7 @@ func GetUsers(c echo.Context) error {
 	createdAtMarginBottom := c.QueryParam("created_at_margin_bottom")
 
 	param := utils.PopulatePaging(c, "status")
-	data := repository.GetUsers(roleID,categoryID, createdAtMarginTop, createdAtMarginBottom, param)
+	data := repository.GetUsers(roleID, categoryID, createdAtMarginTop, createdAtMarginBottom, param)
 
 	return c.JSON(http.StatusOK, data)
 }
@@ -202,7 +202,6 @@ func UpdateUserByID(c echo.Context) error {
 	if input.District != "" {
 		data.District = input.District
 	}
-
 	if input.City != "" {
 		data.City = input.City
 	}
@@ -215,13 +214,20 @@ func UpdateUserByID(c echo.Context) error {
 	if input.ZipCode != "" {
 		data.ZipCode = input.ZipCode
 	}
-
 	if input.Status != 0 {
 		data.Status = input.Status
 	}
-
 	if input.Gender != "" {
 		data.Gender = input.Gender
+	}
+	if input.Code != "" {
+		data.Code = input.Code
+	}
+	if input.Experience != "" {
+		data.Experience = input.Experience
+	}
+	if input.CategoryID != 0 {
+		data.CategoryID = input.CategoryID
 	}
 
 	// if input.RoleID != 0 {
